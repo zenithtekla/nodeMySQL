@@ -1,0 +1,5 @@
+go_to_dir.txt
+cd c:/inetpub/wwwroot/development/
+
+cd c:/inetpub/wwwroot/development/phuc_NodeJS_MySQL/NodeMySQL
+

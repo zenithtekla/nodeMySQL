@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>hogan.js example</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.2/hogan.min.js"></script>
+    <script>
+        var data = {
+            twitter: "joemaddalone",
+            date: Math.floor(Date.now() / 1000),
+            url: "http://www.joemaddalone.com",
+        };
+        var template = Hogan.compile("@{{twitter}} - {{date}} - {{url}}");
+        var output = template.render(data);
+        document.getElementById('output').innerHTML=output;
+    </script>
+</body>
+</html>
