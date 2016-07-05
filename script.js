@@ -58,8 +58,8 @@ app.get('/', function(req, res){
 				} else {
 					console.log('Success!\n');
 					console.log(rows);
+					// res.send('Hello, ' + rows[0].Name);
 					res.json(rows);
-					res.send('Hello, ' + rows[0].Name);
 					// parse with your rows/ fields
 				}
 			});
