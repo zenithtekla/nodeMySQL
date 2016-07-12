@@ -1,0 +1,14 @@
+doctype html
+head
+    title= title
+h1= title
+table
+    tr
+        th FirstName
+        th LastName
+    - if (employees.length) {
+    each emp in employees
+        tr
+            td= emp.firstName
+            td= emp.lastName
+    - }
