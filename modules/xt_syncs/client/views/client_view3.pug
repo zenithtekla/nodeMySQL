@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title Document
+    body
+        table
+            tr
+                th Id
+                th Name
+            - if (len) {
+            each row in rows
+                tr
+                    td= row.id
+                    td= row.Name
+            - }
