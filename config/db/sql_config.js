@@ -4,6 +4,11 @@ var sql = {
     host: 'localhost',
     user: 'root',
     password: 'KTMEi',
-    database: 'mantis_live_dev'
+    database: 'mantis_live_dev',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+    }
 };
 module.exports = sql;

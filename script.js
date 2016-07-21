@@ -1,17 +1,18 @@
 // import modules
 var express = require('express'),
-    cfg = require('./config/config'),    
-    view_path = cfg.xt_sync.views,
-    route_path = cfg.xt_sync.routes,
+    config = require('./config/config'),
+    view_path = config.views,
+    route_path = config.routes,
     path = require('path'),
     pug = require('pug'),
     app = express();
 
-var port = cfg.port;
+var port = config.port;
 
 // configure ROUTES
 var display = require('.' + route_path + 'xt_syncs.server.routes');
 var display_w_crud = require('.' + route_path + 'xt_syncs.server.crud.routes');
+var display_w_schema = require('.' + route_path + 'xt_syncs.server.schema');
 
 // console.log(display);
 
@@ -22,5 +23,6 @@ app.set('view engine', 'pug');
 // register routes
 app.use('/', display);
 app.use('/crud', display_w_crud);
+app.use('/view3', display_w_schema);
 
 app.listen(port);

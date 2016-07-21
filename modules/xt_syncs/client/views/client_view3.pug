@@ -4,13 +4,16 @@ html(lang='en')
         meta(charset='UTF-8')
         title Document
     body
+        h3=articles.title
         table
             tr
                 th Id
-                th Name
-            - if (len) {
-            each row in rows
+                th Title
+                th Article
+            - if (articles.length) {
+            each article in articles
                 tr
-                    td= row.id
-                    td= row.Name
+                    td= article.id
+                    td= article.title
+                    td= article.content
             - }

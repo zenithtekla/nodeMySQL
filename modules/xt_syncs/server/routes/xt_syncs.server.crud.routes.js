@@ -2,16 +2,18 @@ var express = require('express'),
     router = express.Router(),
     mysql = require('mysql'),
     path = require('path');
-var __basepath =  process.env.PWD;
-    __basepath = 'c:\\' + __basepath.replace(/\//g, "\\").substr(3);
+
+/* load sql_config */
+var __basepath =  process.cwd();
+    // __basepath = 'c:\\' + __basepath.replace(/\//g, "\\").substr(3);
 var sql = require( __basepath +'/config/db/sql_config');
 
 // implement connectionPool
 var connection = mysql.createPool(sql);
 
 router.get('/view3', function (req,res) {
+    console.log('my process is ' ,process.cwd());
 
-    // about mysql
     // connection.query("SELECT * FROM mantis_live_dev WHERE", function(error, rows, fields));
     connection.getConnection(function(error, tempCont){
         if(!!error){
@@ -36,7 +38,5 @@ router.get('/view3', function (req,res) {
             });
         }
     });
-    console.log(sql);
-
 });
 module.exports = router;

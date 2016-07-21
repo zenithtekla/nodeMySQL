@@ -1,14 +1,11 @@
 'use strict';
 
 var initGlobalConfig = function(){
-    var config = {
+    return {
         port: 1337,
-        xt_sync: {
-          views: '/modules/xt_syncs/client/views/',
-          routes: '/modules/xt_syncs/server/routes/'
-        }
+        views: '/modules/xt_syncs/client/views/',
+        routes: '/modules/xt_syncs/server/routes/'
     };
-  return config;
 };
 
 /**
