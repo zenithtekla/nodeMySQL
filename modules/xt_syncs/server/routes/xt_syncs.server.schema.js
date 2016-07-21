@@ -17,47 +17,48 @@ router.get('/', function (req,res) {
     });
 
     // model schema
-    var Article = connection.define('article', {
-        title: Sequelize.STRING,
-        content: Sequelize.STRING,
-        remark: Sequelize.TEXT
+    var Assembly = connection.define('orm_assembly', {
+        customer_id: Sequelize.INTEGER,
+        number: Sequelize.TEXT,
+        revision: Sequelize.TEXT,
+        unique_key: { type: Sequelize.STRING, unique: true}
     });
 
-    // add to article table
-    var creTask = Article.create({
-        title:'first Article',
-        content: 'kkk',
-        remark: 'a TEXT'
+    // add to assembly table
+    var creTask = Assembly.create({
+        customer_id: 6,
+        number:'assy_02',
+        revision: 'rev_02',
+        unique_key: '_37R0KNO5B'
     });
 
-    var findTask = Article.findById(5);
+    // var findTask = Assembly.findById(5);
 
     // this will create a database table if not exist already
     connection.sync({
         // force: true, // drop table
         logging: console.log
     }).then(function(){
-        // default article
+        // default assembly
         creTask.then(function (task) {
             task.save();
         });
 
         /* // creTask is similar to the following
-        Article.create({
+        Assembly.create({
             title: ' a brown fire-Ffox',
             content: 'jumps over the fench',
             remark: 'just a jumping fox'
         });*/
 
-        Article.findAll().then(function(articles){
-            console.log(articles);
+        Assembly.findAll().then(function(assemblys){
             var results = [];
-            articles.map(article=>{
-                results.push(article.dataValues);
+            assemblys.map(assembly=>{
+                results.push(assembly.dataValues);
             });
 
             // res.send('200');
-            res.render('client_view3', { articles: results});
+            res.render('client_view3', { assemblys: results});
         });
     }).catch(function (error) {
         console.log(error);

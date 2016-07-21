@@ -4,16 +4,20 @@ html(lang='en')
         meta(charset='UTF-8')
         title Document
     body
-        h3=articles.title
+        h3='Assembly Listing'
+        - if (assemblys.length) {
         table
             tr
-                th Id
-                th Title
-                th Article
-            - if (articles.length) {
-            each article in articles
+                th id
+                th customer_id
+                th number
+                th revision
+                th unique_key
+            each assembly in assemblys
                 tr
-                    td= article.id
-                    td= article.title
-                    td= article.content
-            - }
+                    td= assembly.id
+                    td= assembly.customer_id
+                    td= assembly.number
+                    td= assembly.revision
+                    td= assembly.unique_key
+        - }
