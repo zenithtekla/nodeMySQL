@@ -10,7 +10,7 @@ html(lang='en')
             tr
                 th id
                 th customer_id
-                th number
+                th Assembly_number
                 th revision
                 th unique_key
             each assembly in assemblys
@@ -19,5 +19,7 @@ html(lang='en')
                     td= assembly.customer_id
                     td= assembly.number
                     td= assembly.revision
+                    - if (assembly.unique_key) {
                     td= assembly.unique_key
+                    - }
         - }

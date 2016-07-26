@@ -2,7 +2,7 @@
 
 var initGlobalConfig = function(){
     return {
-        port: 1337,
+        port: process.env.PORT || 1337,
         views: '/modules/xt_syncs/client/views/',
         routes: '/modules/xt_syncs/server/routes/'
     };

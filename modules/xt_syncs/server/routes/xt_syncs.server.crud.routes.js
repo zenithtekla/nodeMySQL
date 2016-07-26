@@ -11,7 +11,7 @@ var sql = require( __basepath +'/config/db/sql_config');
 // implement connectionPool
 var connection = mysql.createPool(sql);
 
-router.get('/view3', function (req,res) {
+router.get('/', function (req,res) {
     console.log('my process is ' ,process.cwd());
 
     // connection.query("SELECT * FROM mantis_live_dev WHERE", function(error, rows, fields));
@@ -32,7 +32,7 @@ router.get('/view3', function (req,res) {
                     var len = rows.length;
                     // res.send('Hello, ' + rows[0].Name);
                     // res.json(rows);
-                    res.render('client_view3', { rows: rows, len: len});
+                    res.render('client_crud_view_chars', { rows: rows, len: len});
                     // parse with your rows/ fields
                 }
             });

@@ -2,9 +2,14 @@
   "name": "mysqlApplication",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
+    "favicon": "0.0.2",
+    "method-override": "^2.3.6",
     "mysql": "^2.10.2",
     "pug": "^2.0.0-beta3",
-    "sequelize": "^3.23.6"
+    "sequelize": "^3.23.6",
+    "sequelize-isunique-validator": "^1.1.1"
   }
 }

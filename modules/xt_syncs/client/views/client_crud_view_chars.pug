@@ -8,7 +8,7 @@ html(lang='en')
             tr
                 th Id
                 th Name
-            - if (len) {
+            - if (rows.length) {
             each row in rows
                 tr
                     td= row.id

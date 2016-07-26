@@ -10,6 +10,8 @@ var sql = require( process.cwd() +'/config/db/sql_config');
 
 router.get('/', function (req,res) {
     const Sequelize = require('sequelize');
+        require('sequelize-isunique-validator')(Sequelize);
+
     var connection = new Sequelize(sql.database, sql.user, sql.password, {
         host: sql.host,
         dialect: 'mysql', // optional dialect
@@ -21,7 +23,13 @@ router.get('/', function (req,res) {
         customer_id: Sequelize.INTEGER,
         number: Sequelize.TEXT,
         revision: Sequelize.TEXT,
-        unique_key: { type: Sequelize.STRING, unique: true}
+        unique_key: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                isUnique: connection.validateIsUnique('unique_key')
+            }
+        }
     });
 
     // add to assembly table
