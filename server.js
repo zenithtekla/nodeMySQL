@@ -7,10 +7,12 @@ var express         = require('express'),
     view_path       = config.views,
     route_path      = config.routes,
     path            = require('path'),
-    favicon         = require('favicon'),
+    favicon         = require('favicon'), // or require('serve-favicon');
     cookieParser    = require('cookie-parser'),
     bodyParser      = require('body-parser'),
     methodOverride  = require('method-override')
+    
+    // morgan, fs 
 ;
 
 // CONFIGURATION ===============================================

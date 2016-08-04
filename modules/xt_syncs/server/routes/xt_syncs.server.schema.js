@@ -19,17 +19,25 @@ router.get('/', function (req,res) {
     });
 
     // model schema
-    var Assembly = connection.define('orm_assembly', {
-        customer_id: Sequelize.INTEGER,
-        number: Sequelize.TEXT,
-        revision: Sequelize.TEXT,
+    var Assembly = connection.define('orm_assembly_table', {
+        customer_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
+        number: Sequelize.STRING(250),
+        revision: Sequelize.STRING(10),
         unique_key: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(10),
             allowNull: false,
+            isUnique: true,
             validate: {
                 isUnique: connection.validateIsUnique('unique_key')
             }
         }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
     });
 
     // add to assembly table
