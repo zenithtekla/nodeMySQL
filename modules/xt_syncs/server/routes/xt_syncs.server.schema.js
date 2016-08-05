@@ -17,11 +17,21 @@ router.get('/', function (req,res) {
         dialect: 'mysql', // optional dialect
         pool: sql.pool
     });
+    
+    // validation of DB connection
+    connection
+    .authenticate()
+    .then(function(err){
+        console.log('dB connection has been established successfully.');
+    }).
+    catch(function(err){
+       console.log('Unable to connect to the database: ', err);
+    });
 
     // model schema
     var Assembly = connection.define('orm_assembly_table', {
         customer_id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.INTEGER.UNSIGNED,
             allowNull: false
         },
         number: Sequelize.STRING(250),
