@@ -5,6 +5,7 @@ var path      = require("path");
 var Sequelize = require("sequelize");
 var env       = process.env.NODE_ENV || "development";
 var config    = require(path.join(process.cwd(), '/config/db/', 'sql_config.json'))[env];
+/* sequelize for JS, similar to Hibernate (ORM) to Java, Entity to .NET */
 var sequelize = new Sequelize(config.database, config.user, config.password, config);
 var db        = {};
 
