@@ -16,7 +16,7 @@ module.exports = function(app){
             });
         });
         console.log('NODE_ENV = development');
-        var models = require("../models");
+        var models = require(process.cwd() + '/modules/core/models');
         models.sequelize.sync().then(function () {
             // console.log(arguments);
 /*            var server = app.listen(app.get('port'), function() {

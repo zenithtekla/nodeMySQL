@@ -4,7 +4,7 @@ var express = require('express'),
 //var path = require('path');
 
 /* sequelize for JS, similar to Hibernate (ORM) to Java, Entity to .NET */
-var models = require( process.cwd() + '/models');
+var models = require( process.cwd() + '/modules/core/models');
 
 
 
