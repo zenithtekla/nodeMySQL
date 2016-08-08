@@ -1,26 +1,26 @@
 var express = require('express'),
-    router = express.Router(),
-    mysql = require('mysql'),
-    path = require('path');
+    router  = express.Router(),
+    mysql   = require('mysql'),
+    path    = require('path'),
+    env     = process.env.NODE_ENV || "development";
 
 /* load sql_config */
 var __basepath =  process.cwd();
     // __basepath = 'c:\\' + __basepath.replace(/\//g, "\\").substr(3);
-var sql = require( __basepath +'/config/db/sql_config');
+var sql = require( __basepath +'/config/db/sql_config.json')[env];
 
 // implement connectionPool
-var connection = mysql.createPool(sql);
+var pool = mysql.createPool(sql);
 
 router.get('/', function (req,res) {
-    console.log('my process is ' ,process.cwd());
-
-    // connection.query("SELECT * FROM mantis_live_dev WHERE", function(error, rows, fields));
-    connection.getConnection(function(error, tempCont){
+    console.log('my process is ', process.cwd());
+    // pool.query("SELECT * FROM mantis_live_dev WHERE", function(error, rows, fields));
+    pool.getConnection(function(error, tempCont){
         if(!!error){
             tempCont.release();
-            console.log('Error');
+            console.log('Error', error);
         } else {
-            console.log('Successfully connected.');
+            console.log('MySQL Pool process successfully connected.');
             var query1 = "SELECT * FROM mysampletable WHERE id>10";
             tempCont.query(query1, function(error, rows, fields){
                 tempCont.release();
@@ -28,7 +28,7 @@ router.get('/', function (req,res) {
                 if(!!error){
                     console.log('Error in the query');
                 } else {
-                    console.log('Success!\n');
+                    console.log('Query successfully executed!\n');
                     var len = rows.length;
                     // res.send('Hello, ' + rows[0].Name);
                     // res.json(rows);

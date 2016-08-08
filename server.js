@@ -10,7 +10,8 @@ var express         = require('express'),
     favicon         = require('favicon'), // or require('serve-favicon');
     cookieParser    = require('cookie-parser'),
     bodyParser      = require('body-parser'),
-    methodOverride  = require('method-override')
+    methodOverride  = require('method-override'),
+    // session         = require('express-session'), easy-node-authentication.git
     app             = require('./config/config.server')(app) // load config.server to initialise the RUN_ENV
     // morgan, fs
 ;
@@ -67,28 +68,6 @@ app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
-});
-/// error handlers
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
 });
 
 app.listen(port);
