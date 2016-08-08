@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Assembly = sequelize.define('orm_assembly_table', {
+  var Assembly = sequelize.define('Assembly', {
       customer_id: {
           type: DataTypes.INTEGER.UNSIGNED,
           allowNull: false
@@ -17,7 +17,10 @@ module.exports = function(sequelize, DataTypes) {
   },
   {
       timestamps: false,
-      freezeTableName: true
+      tableName: 'orm_assembly_table',
+      freezeTableName: true,
+      charset: 'utf8',
+      collate: 'utf8_unicode_ci'
 
       /*, getterMethods   : {
         fullName       : function()  { return this.firstname + ' ' + this.lastname }

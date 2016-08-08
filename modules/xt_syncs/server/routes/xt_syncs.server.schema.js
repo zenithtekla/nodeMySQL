@@ -38,7 +38,7 @@ router.get('/', function (req,res) {
             remark: 'just a jumping fox'
         });*/
     // console.log(models.Assembly);
-    models.orm_assembly_table.findAll().then(function(assemblys){
+    models.Assembly.findAll().then(function(assemblys){
 
 /*        var results = [];
         assemblys.map(assembly=>{
