@@ -45,7 +45,7 @@ app.use(cookieParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 // set the static files location /public/img will be /img for users
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads'));
 
 // view engine setup ===========================================
 
@@ -64,17 +64,6 @@ naming convention in 1 routes.js file so,
     /cablirate/record/:record
     /cablirate/record/add (insert|update a record, not quite necessary)
  */
-
-// as for now, this will do:
-var route_path = config.routes.xtsyncs;
-var display = require('.' + route_path + 'xt_syncs.server.routes');
-var display_w_crud = require('.' + route_path + 'xt_syncs.server.crud.routes');
-var display_w_schema = require('.' + route_path + 'xt_syncs.server.schema');
-
-// register routes
-app.use('/', display);
-app.use('/crud', display_w_crud);
-app.use('/view3', display_w_schema);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

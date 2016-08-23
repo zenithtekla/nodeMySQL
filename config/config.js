@@ -1,6 +1,6 @@
 'use strict';
-var fs    = require('fs'),
-    path  = require('path');
+var path  = require('path'),
+    util  = require('./assets/util');
 
 var initGlobalConfig = function(){
   return {
@@ -13,8 +13,14 @@ var initGlobalConfig = function(){
           xtsyncs: '/modules/xt_syncs/server/routes/',
           calibrate: '/modules/calibrate/server/routes/'
         },
-        modules: getDirectories('modules')
-        /* temporary solution as for now
+        modules: util.getDirectories('modules'),
+        base_path: path.join(__dirname, '../')
+        /*
+        using regEx on basepath (r4)
+         var __basepath =  process.env.PWD;
+            __basepath = 'c:\\' + __basepath.replace(/\//g, "\\").substr(3);
+
+        temporary solution as for now
         as fsreaddirSync or Gulp|Grunt|Webpack has not yet been incorporated
         for automatic loading & registering of the files of every module.
         pending buildTool & TestScript (Mocha, Chai, Jasmine...)
@@ -26,13 +32,3 @@ var initGlobalConfig = function(){
  * Set configuration object
  */
 module.exports = initGlobalConfig();
-
-// ========================= Util method ======================
-// pending relocation to config
-function getDirectories(srcpath) {
-  return fs.readdirSync(srcpath).filter(function(file) {
-    return fs.statSync(path.join(srcpath, file)).isDirectory();
-  });
-}
-
-
