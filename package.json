@@ -10,6 +10,7 @@
     "mysql": "^2.10.2",
     "pug": "^2.0.0-beta3",
     "sequelize": "^3.23.6",
-    "sequelize-isunique-validator": "^1.1.1"
+    "sequelize-isunique-validator": "^1.1.1",
+    "underscore": "^1.8.3"
   }
 }

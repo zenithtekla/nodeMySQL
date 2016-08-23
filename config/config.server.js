@@ -3,6 +3,20 @@
 
 /* CONFIGURATE RUN ENV */
 module.exports = function(app){
+    var config = require('./config'), 
+        _      = require('underscore'),
+        path   = require('path');
+
+  // view engine setup ==============
+    var modules = {};
+    _.each(config.modules, function(module){
+      app.set('views', path.join(process.cwd(), 'modules', module, 'client', 'views'));
+      modules[module] = {
+        client: {},
+        server: {}
+      };
+    });
+    app.set('view engine', 'pug');
 
     /// error handlers
     // development error handler
@@ -17,17 +31,17 @@ module.exports = function(app){
         });
 
         console.log('NODE_ENV = development');
-        var models = require(process.cwd() + '/modules/core/models');
+        var models = require(process.cwd() + '/modules/core/server/models');
 
         // Some DATA-PRESET (pre-insert), e.g. add to assembly table
-        var creTask = models.Assembly.create({
+        /*var creTask = models.Assembly.create({
             customer_id: 6,
             number:'assy_02',
             revision: 'rev_02',
             unique_key: '_37R0KNO5B'
-        });
+        });*/
 
-        models.sequelize.sync({logging: console.log}).then(function (task) {
+        models.sequelize.sync().then(function (task) {
             // console.log(arguments);
 /*          var server = app.listen(app.get('port'), function() {
                 debug('Express server listening on port ' + server.address().port);

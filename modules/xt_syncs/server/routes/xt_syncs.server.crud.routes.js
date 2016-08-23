@@ -21,7 +21,7 @@ router.get('/', function (req,res) {
             console.log('Error', error);
         } else {
             console.log('MySQL Pool process successfully connected.');
-            var query1 = "SELECT * FROM mysampletable WHERE id>10";
+            var query1 = "SELECT id, project_id, summary FROM mantis_bug_table WHERE id<10";
             tempCont.query(query1, function(error, rows, fields){
                 tempCont.release();
                 // callback
@@ -29,10 +29,9 @@ router.get('/', function (req,res) {
                     console.log('Error in the query');
                 } else {
                     console.log('Query successfully executed!\n');
-                    var len = rows.length;
                     // res.send('Hello, ' + rows[0].Name);
                     // res.json(rows);
-                    res.render('client_crud_view_chars', { rows: rows, len: len});
+                    res.render('client_crud_view_chars', { rows: rows});
                     // parse with your rows/ fields
                 }
             });

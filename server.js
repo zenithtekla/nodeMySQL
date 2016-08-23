@@ -4,8 +4,6 @@
 var express         = require('express'),
     app             = express(),
     config          = require('./config/config'),
-    view_path       = config.views,
-    route_path      = config.routes,
     path            = require('path'),
     favicon         = require('favicon'), // or require('serve-favicon');
     cookieParser    = require('cookie-parser'),
@@ -50,10 +48,25 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // view engine setup ===========================================
-app.set('views', path.join(__dirname, view_path));
-app.set('view engine', 'pug');
+
 
 // configure ROUTES ============================================
+
+/*
+modules names are ready: config.modules
+naming convention in 1 routes.js file so,
+    /cablirate/index (getAll() to display all records with statuses,
+        containing action ribbons for equipment, record)
+    /cablirate/equipment (getAll() to display all equipments, not quite necessary)
+    /cablirate/equipment/add (insert|update)
+    /cablirate/equipment/:equipment (post to retrieve related equipment data)
+    /cablirate/record (getAll() to display all records)
+    /cablirate/record/:record
+    /cablirate/record/add (insert|update a record, not quite necessary)
+ */
+
+// as for now, this will do:
+var route_path = config.routes.xtsyncs;
 var display = require('.' + route_path + 'xt_syncs.server.routes');
 var display_w_crud = require('.' + route_path + 'xt_syncs.server.crud.routes');
 var display_w_schema = require('.' + route_path + 'xt_syncs.server.schema');

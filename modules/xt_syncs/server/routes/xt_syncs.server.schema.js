@@ -3,7 +3,7 @@ var express = require('express'),
 //var path = require('path');
 
 // load the models
-var models = require( process.cwd() + '/modules/core/models');
+var models = require( process.cwd() + '/modules/core/server/models');
 
 
 router.get('/', function (req,res) {
