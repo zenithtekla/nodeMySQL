@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var path = require('path');
+var express = require('express'),
+    router  = express.Router(),
+    path    = require('path'),
+    env     = process.env.NODE_ENV || "development";
 
 // load the models
 var models = require( process.cwd() + '/modules/core/server/models');
@@ -35,4 +36,41 @@ router.get('/assembly', function (req,res) {
     });
 });
 
+// a pattern to use simple mySQL npm with poolConnection
+router.get('/project', function (req,res) {
+  var mysql   = require('mysql');
+  console.log('my process is ', process.cwd());
+  
+  /* load sql_config */
+  // __basepath = 'c:\\' + __basepath.replace(/\//g, "\\").substr(3);
+  var __basepath =  process.cwd();
+  var sql = require( __basepath +'/config/db/sql_config.json')[env];
+
+  // implement connectionPool
+  var pool = mysql.createPool(sql);
+  
+  // pool.query("SELECT * FROM mantis_live_dev WHERE", function(error, rows, fields));
+  pool.getConnection(function(error, tempCont){
+    if(!!error){
+      tempCont.release();
+      console.log('Error', error);
+    } else {
+      console.log('MySQL Pool process successfully connected.');
+      var query1 = "SELECT id, project_id, summary FROM mantis_bug_table WHERE id<10";
+      tempCont.query(query1, function(error, rows, fields){
+        tempCont.release();
+        // callback
+        if(!!error){
+          console.log('Error in the query');
+        } else {
+          console.log('Query successfully executed!\n');
+          // res.send('Hello, ' + rows[0].Name);
+          // res.json(rows);
+          res.render('client_crud_view_chars', { rows: rows});
+          // parse with your rows/ fields
+        }
+      });
+    }
+  });
+});
 module.exports = router;

@@ -8,7 +8,7 @@ module.exports = function(app){
         path   = require('path'),
         util  = require('./assets/util');
 
-  // view engine setup ==============
+    // view engine setup ==============
     var modules = {}, view_paths = [], route_paths = [];
     _.each(config.modules, function(module){
       var module_path = path.join(process.cwd(), 'modules', module),
@@ -16,7 +16,7 @@ module.exports = function(app){
 
       view_paths.push(path.join(module_path, 'client', 'views'));
 
-      route_path = path.join(module_path, 'server', 'routes');
+      var route_path = path.join(module_path, 'server', 'routes');
       route_paths.push(route_path);
 
       modules[module] = {};
@@ -31,43 +31,16 @@ module.exports = function(app){
           var module_subchild_path = path.join(module_subpath, child);
           modules[module][sub][child] = util.getFiles(module_subchild_path);
           // console.log(modules[module][sub][child]);
-          if(child === "routes")
+          var str = "routes", patt = new RegExp(str);
+          if(patt.test(child))
             app.use('/' + module, require(path.join(module_subpath, child, module + '.server.routes')));
         });
       });
-
-     /* console.log('Katana');
-      console.log(modules[module].server.routes);
-*/
-      /*modules[module] = {
-        client: {},
-        server: {
-         route: []
-        }
-      };*/
-
     });
+
     app.set('views', view_paths);
     app.set('view engine', 'pug');
-
-  // as for now, this will do:
-  var route_path = config.routes.xtsyncs;
-  // console.log('route_path: ', route_path);
-  // console.log('base_path: ', config.base_path);
-
-  // var display = require(path.join(process.cwd(), route_path, 'xt_syncs.server.routes'));
-  // var display_w_crud = require('.' + process.cwd() + '/' + route_path + 'xt_syncs.server.simple.mysql');
-  // var display_w_schema = require('./../' + route_path + 'xt_syncs.server.schema');
-
-// register routes
-//   app.use('/xt_syncs', display);
-  // app.use('/xt_syncs/mysql', display_w_crud);
-  // app.use('/xt_syncs/view3', display_w_schema);
-
-  /*// register routes
-  app.use('/'+ module, display);
-  app.use('/'+ module +'/mysql', display_w_crud);
-  app.use('/'+ module + '/view3', display_w_schema);*/
+    // =================================
 
     /// error handlers
     // development error handler

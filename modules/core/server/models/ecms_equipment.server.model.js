@@ -51,6 +51,6 @@ module.exports = function(sequelize, DataTypes) {
 
       */
   });
-  EquipmentTable.removeAttribute('id');
+  // EquipmentTable.removeAttribute('id');
   return EquipmentTable;
 };
