@@ -1,0 +1,6 @@
+{
+  "erp-2": {
+    "work_order": "http://erp-2/ews/ManexWebService.asmx/GetSalesOrderAndWorkOrder?WorkOrderNo=",
+    "acct_date": "http://erp-2/ews/ManexWebService.asmx/GetCustomerByCutOffDate?Acct_Date="
+  }
+}

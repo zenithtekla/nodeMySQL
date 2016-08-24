@@ -5,15 +5,12 @@ var path  = require('path'),
 var initGlobalConfig = function(){
   return {
         port: process.env.PORT || 1337,
- /*       views: {
-          xtsyncs: '/modules/xt_syncs/client/views/',
-          calibrate: '/modules/calibrate/client/views/'
-        }, */    
         routes: {
           xtsyncs: '/modules/xt_syncs/server/routes/',
           calibrate: '/modules/calibrate/server/routes/'
         },
         modules: util.getDirectories('modules'),
+        apps: util.getAppsDir('modules'),
         base_path: path.join(__dirname, '../')
         /*
         using regEx on basepath (r4)

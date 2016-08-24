@@ -2,15 +2,15 @@
 
 // modules =====================================================
 var express         = require('express'),
+    morgan          = require('morgan'),
     app             = express(),
     config          = require('./config/config'),
     path            = require('path'),
     favicon         = require('favicon'), // or require('serve-favicon');
     cookieParser    = require('cookie-parser'),
     bodyParser      = require('body-parser'),
-    methodOverride  = require('method-override'),
+    methodOverride  = require('method-override')
     // session         = require('express-session'), easy-node-authentication.git
-    app             = require('./config/config.server')(app) // load config.server to initialise the RUN_ENV
     // morgan, fs
 ;
 
@@ -24,6 +24,9 @@ var db = require('./config/db/mongo_config');
 mongoose.connect(db.url);*/
 
 // configuration with middlewares ==============================
+
+app.use(morgan('combined'));
+
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -47,11 +50,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 // set the static files location /public/img will be /img for users
 app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads'));
 
-// view engine setup ===========================================
-
-
 // configure ROUTES ============================================
-
+app = require('./config/config.server')(app); // load config.server to initialise the RUN_ENV
 /*
 modules names are ready: config.modules
 naming convention in 1 routes.js file so,

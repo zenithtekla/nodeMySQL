@@ -10,11 +10,10 @@ module.exports = function(app){
 
     // view engine setup ==============
     var modules = {}, view_paths = [], route_paths = [];
+
     _.each(config.modules, function(module){
       var module_path = path.join(process.cwd(), 'modules', module),
           module_sub = util.getDirectories(module_path);
-
-      view_paths.push(path.join(module_path, 'client', 'views'));
 
       var route_path = path.join(module_path, 'server', 'routes');
       route_paths.push(route_path);
@@ -34,10 +33,13 @@ module.exports = function(app){
           var str = "routes", patt = new RegExp(str);
           if(patt.test(child))
             app.use('/' + module, require(path.join(module_subpath, child, module + '.server.routes')));
+          str ="views"; patt = new RegExp(str);
+          if(patt.test(child))
+            view_paths.push(path.join(module_path, sub, child));
         });
       });
     });
-
+    console.log(view_paths);
     app.set('views', view_paths);
     app.set('view engine', 'pug');
     // =================================
