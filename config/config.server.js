@@ -79,6 +79,11 @@ module.exports = function(app){
         });
     }
 
+    if (app.get('env') === 'production') {
+    }
+
+    if (app.get('env') === 'test') {
+    }
     // production error handler
     // no stacktraces leaked to user
     app.use(function(err, req, res, next) {

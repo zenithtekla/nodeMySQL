@@ -1,5 +1,5 @@
 var express     = require('express'),
-    router         = express.Router(),
+    router      = express.Router(),
     controller  = require('../controllers/xt_syncs.server.controllers');
 
 /* GET home page. */
