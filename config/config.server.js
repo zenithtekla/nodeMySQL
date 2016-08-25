@@ -67,13 +67,19 @@ module.exports = function(app){
             unique_key: '_37R0KNO5B'
         });*/
 
-        var equipmentTask = models.ECMS_Equipment.create({
-          id: 4,
-          asset_number: 'asset04',
-          location_id: 'OrlandoXYZ04',
+        /*var equipmentTask = models.ECMS_Equipment.bulkCreate([{
+          id: 5,
+          asset_number: 'asset05',
+          location_id: 'geoLocation05',
           model: 'someModel',
-          status: 3
-        });
+          status: 2
+        },{
+          id: 6,
+          asset_number: 'asset06',
+          location_id: 'geoLocation06',
+          model: 'someModel',
+          status: 1
+        }]);*/
 
         models.sequelize.sync({ /*force: true, logging: console.log*/ }).then(function (task) {
             // console.log(arguments);

@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Document
+  body
+    h3='Listing from ECMS location table'
+    - if (locations.length) {
+    table
+      tr
+        th id
+        th desc
+      each location in locations
+        tr
+          td= location.id
+          td= location.desc
+    - }

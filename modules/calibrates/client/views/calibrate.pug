@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Document
+  body
+    h3='Calibrate Listing'
+    - if (calibrates.length) {
+    table
+      tr
+        th id
+        th customer_id
+        th Assembly_number
+        th revision
+        th unique_key
+      each calibrate in calibrates
+        tr
+          td= calibrate.id
+          td= calibrate.customer_id
+          td= calibrate.number
+          td= calibrate.revision
+          - if (calibrate.unique_key) {
+          td= calibrate.unique_key
+          - }
+    - }
