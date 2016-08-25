@@ -11,7 +11,8 @@ var initGlobalConfig = function(){
         },
         modules: util.getDirectories('modules'),
         apps: util.getAppsDir('modules'),
-        base_path: path.join(__dirname, '../')
+        base_path: path.join(__dirname, '../'),
+        default_template_engine: 'pug'
         /*
         using regEx on basepath (r4)
          var __basepath =  process.env.PWD;

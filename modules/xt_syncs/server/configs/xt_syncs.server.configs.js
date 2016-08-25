@@ -1,7 +1,7 @@
 'use strict';
 var config = require('./app.config.json');
 /* CONFIGURATE module */
-module.exports = function(app, modules, module, module_path){
+module.exports = function(app, module, module_path){
   /*
     See app.config.json for root & routes declaration. Tips:
     // leave null to invoke default setting
