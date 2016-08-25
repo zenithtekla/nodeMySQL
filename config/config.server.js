@@ -67,7 +67,15 @@ module.exports = function(app){
             unique_key: '_37R0KNO5B'
         });*/
 
-        models.sequelize.sync().then(function (task) {
+        var equipmentTask = models.ECMS_Equipment.create({
+          id: 4,
+          asset_number: 'asset04',
+          location_id: 'OrlandoXYZ04',
+          model: 'someModel',
+          status: 3
+        });
+
+        models.sequelize.sync({ /*force: true, logging: console.log*/ }).then(function (task) {
             // console.log(arguments);
 /*          var server = app.listen(app.get('port'), function() {
                 debug('Express server listening on port ' + server.address().port);
@@ -84,6 +92,7 @@ module.exports = function(app){
 
     if (app.get('env') === 'test') {
     }
+
     // production error handler
     // no stacktraces leaked to user
     app.use(function(err, req, res, next) {

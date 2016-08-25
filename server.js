@@ -3,7 +3,7 @@
 // modules =====================================================
 var express         = require('express'),
     morgan          = require('morgan'),
-    app             = express(),
+    app             = module.exports = express(),
     config          = require('./config/config'),
     path            = require('path'),
     favicon         = require('favicon'), // or require('serve-favicon');

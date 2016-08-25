@@ -2,9 +2,6 @@
 var models = require( process.cwd() + '/modules/core/server/models'),
     env     = process.env.NODE_ENV || "development";
 
-exports.get = function( req, res ) {
-  res.send('hello, world!');
-};
 exports.view1 = function(req, res) {
   res.render('client_view1', { title: 'About', age: 30, path: __dirname.toString() });
 
