@@ -9,14 +9,11 @@ module.exports = function(app){
         util  = require('./assets/util');
 
     // view engine setup ==============
-    var modules = {}, view_paths = [], route_paths = [];
+    var modules = {}, view_paths = [];
 
     _.each(config.modules, function(module){
       var module_path = path.join(process.cwd(), 'modules', module),
           module_sub = util.getDirectories(module_path);
-
-      var route_path = path.join(module_path, 'server', 'routes');
-      route_paths.push(route_path);
 
       modules[module] = {};
 
@@ -25,23 +22,28 @@ module.exports = function(app){
         var module_subpath = path.join(module_path, sub);
 
         var module_subchild = util.getDirectories(module_subpath);
+        console.log(module_subchild);
+        if (module_subchild.indexOf("configs") > -1)
+          require(path.join(module_subpath, 'configs', module + '.server.configs'))(app, modules, module, module_path);
 
-        _.each(module_subchild, function(child){
+        /*_.each(module_subchild, function(child){
           var module_subchild_path = path.join(module_subpath, child);
           modules[module][sub][child] = util.getFiles(module_subchild_path);
           // console.log(modules[module][sub][child]);
-          var str = "routes", patt = new RegExp(str);
-          if(patt.test(child))
-            app.use('/' + module, require(path.join(module_subpath, child, module + '.server.routes')));
-          str ="views"; patt = new RegExp(str);
-          if(patt.test(child))
-            view_paths.push(path.join(module_path, sub, child));
-        });
+
+          if(child.re("routes"))
+            app.use('/' + module, require(path.join(module_subchild_path, module + '.server.routes')));
+
+          if(child.re("views")) {
+            // view_paths.push(module_subchild_path);
+            var view_path = module_subchild_path;
+          }
+        });*/
       });
     });
-    console.log(view_paths);
+    /*console.log(view_paths);
     app.set('views', view_paths);
-    app.set('view engine', 'pug');
+    app.set('view engine', 'pug');*/
     // =================================
 
     /// error handlers

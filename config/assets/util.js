@@ -18,3 +18,8 @@ module.exports = {
     });
   }
 };
+
+String.prototype.re = function(pattern){
+  pattern = (typeof pattern ==='string') ? new RegExp(pattern) : pattern;
+  return pattern.test(this);
+};
