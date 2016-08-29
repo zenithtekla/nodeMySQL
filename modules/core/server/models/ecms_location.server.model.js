@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var LocationTable = sequelize.define('ECMS_Location', {
+  var Schema = sequelize.define('ECMS_Location', {
       desc: {
           type: DataTypes.STRING(20),
           allowNull: false
@@ -16,5 +16,5 @@ module.exports = function(sequelize, DataTypes) {
       collate: 'utf8_unicode_ci'
   });
 
-  return LocationTable;
+  return Schema;
 };

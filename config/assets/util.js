@@ -1,5 +1,8 @@
-var fs    = require('fs'),
-    path  = require('path');
+var fs      = require('fs'),
+    path    = require('path'),
+    chalk   = require('chalk'),
+    log     = require('chalk-log'),
+    _       = require('lodash');
 module.exports = {
   getDirectories: function (srcpath) {
     return fs.readdirSync(srcpath).filter(function(file) {
@@ -16,7 +19,23 @@ module.exports = {
       return file!=="core" && file!=="user"
         && fs.statSync(path.join(srcpath, file)).isDirectory();
     });
-  }
+  },
+  log: log
+};
+
+String.prototype.chalk = function (color) {
+ return console.log(chalk[color](this));
+};
+
+Array.prototype.chalk = function (color, z) {
+  z = z || '';
+  return console.log(chalk[color](this.join(z)));
+  /*
+   support the following:
+   var arr = ['a brown', 'fox', 'jumps'];
+   arr.chalk('red', ' ');
+   arr.chalk('red');
+  */
 };
 
 String.prototype.re = function(pattern){

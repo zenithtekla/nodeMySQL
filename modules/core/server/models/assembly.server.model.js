@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Assembly = sequelize.define('Assembly', {
+  var Schema = sequelize.define('Assembly', {
       customer_id: {
           type: DataTypes.INTEGER.UNSIGNED,
           allowNull: false
@@ -48,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
       */
   });
 
-  return Assembly;
+  return Schema;
 };
 /* The
 

@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var EquipmentTable = sequelize.define('ECMS_Equipment', {
+  var Schema = sequelize.define('ECMS_Equipment', {
       model: {
           type: DataTypes.STRING(20),
           allowNull: false
@@ -51,6 +51,6 @@ module.exports = function(sequelize, DataTypes) {
 
       */
   });
-  // EquipmentTable.removeAttribute('id');
-  return EquipmentTable;
+  // Schema.removeAttribute('id');
+  return Schema;
 };

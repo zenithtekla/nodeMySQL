@@ -1,0 +1,67 @@
+div
+  h2 CORS with meanJS
+  div(ng-if='app.getfromManex')
+    table(border='1', style='color:#FFA200')
+      thead
+        tr
+          th Index
+          th Uniq_key
+          th Customer_PO
+          th Customer_Name
+          th Due
+          th Work_Order
+          th Sale_Order
+          th Assembly
+          th Revision
+          th Quantity
+          th Timestamp
+      tbody
+        tr(ng-repeat='order in app.getfromManex')
+          td {{$index+1}}
+          td {{order.key}}
+          td {{order.customer_po}}
+          td {{order.customer_name}}
+          td {{order.due_date}}
+          td {{order.wo}}
+          td {{order.so}}
+          td {{order.assembly}}
+          td {{order.revision}}
+          td {{order.qty}}
+          td {{order.timestamp}}
+  div(ng-if='app.postfromManex')
+    table(border='1', style='color:#166CD7')
+      thead
+        tr
+          th Index
+          th Uniq_key
+          th Customer_PO
+          th Customer_Name
+          th Due
+          th Work_Order
+          th Sale_Order
+          th Assembly
+          th Revision
+          th Quantity
+          th Timestamp
+      tbody
+        tr(ng-repeat='order in app.postfromManex')
+          td {{$index+1}}
+          td {{order.key}}
+          td {{order.customer_po}}
+          td {{order.customer_name}}
+          td {{order.due_date}}
+          td {{order.wo}}
+          td {{order.so}}
+          td {{order.assembly}}
+          td {{order.revision}}
+          td {{order.qty}}
+          td {{order.timestamp}}
+  br
+  br
+  label(for='Work Order')
+    | Work_Order Search:
+    input(type='text', ng-model='app.work_order')
+  button(ng-click='app.getManex(app.work_order)') get Manex
+  button(ng-click='app.postManex(app.work_order)') post Manex
+  span(ng-show='app.work_order') Search for "{{app.work_order}}"
+  span(ng-show='!app.work_order') Search ..."

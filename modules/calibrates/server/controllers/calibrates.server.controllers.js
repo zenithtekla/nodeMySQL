@@ -37,7 +37,12 @@ exports.postCalibrate = function (req, res) {
 
 };
 exports.postEquipment = function (req, res) {
-
+  Equipment.create(req.body,{
+    fields:['model', 'asset_number', 'location_id']
+  })
+    .then(function (newEquipment) {
+      console.log(newEquipment.dataValues);
+    })
 };
 
 exports.postRecord = function (req, res) {

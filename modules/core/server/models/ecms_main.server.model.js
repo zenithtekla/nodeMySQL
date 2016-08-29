@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var MainTable = sequelize.define('ECMS_Main', {
+  var Schema = sequelize.define('ECMS_Main', {
       asset_number: {
         type: DataTypes.STRING(20),
         allowNull: false,
@@ -21,5 +21,5 @@ module.exports = function(sequelize, DataTypes) {
       collate: 'utf8_unicode_ci'
   });
 
-  return MainTable;
+  return Schema;
 };
