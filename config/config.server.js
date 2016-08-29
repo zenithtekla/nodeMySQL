@@ -25,12 +25,12 @@ module.exports  = function(app){
 
           modules[module] = {};
 
-          if (module_subchild.indexOf("configs") > -1){
+/*          if (module_subchild.indexOf("configs") > -1){
             console.log('+ ' + module);
             loaded.push(module);
             require(path.join(module_subpath, 'configs', module + '.server.configs'))(app, modules, module, module_path);
           }
-          else if (module_subchild.indexOf("routes") > -1) {
+          else */if (module_subchild.indexOf("routes") > -1) {
             console.log('/ ' + module);
             loaded.push(module);
             require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, modules, module, module_path);
@@ -52,13 +52,21 @@ module.exports  = function(app){
       }
     });
 
-    app.set('views', views),
-      app.set('view engine', 'pug');
+    app.set('views', views);
+    app.set('view engine', 'pug');
+
+    // resolve 304 status code
+    app.disable('etag');
 
     /// error handlers
     // development error handler
     // will print stacktrace
     if (app.get('env') === 'development') {
+        /*app.use(function(req, res, next) {
+          req.headers['if-none-match'] = 'no-match-for-this';
+          next();
+        });*/
+
         app.use(function(err, req, res, next) {
             res.status(err.status || 500);
             res.render('error', {
@@ -135,6 +143,11 @@ module.exports  = function(app){
     }
 
     if (app.get('env') === 'production') {
+      /*app.use(function(req, res, next) {
+        req.headers['if-none-match'] = 'no-match-for-this';
+        next();
+      });*/
+
       // production error handler
       // no stacktraces leaked to user
       app.use(function(err, req, res, next) {

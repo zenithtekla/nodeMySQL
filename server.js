@@ -24,9 +24,8 @@ var db = require('./config/db/mongo_config');
 mongoose.connect(db.url);*/
 
 // configuration with middlewares ==============================
-
+// use morgan logger
 app.use(morgan('combined'));
-
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -47,10 +46,7 @@ app.use(cookieParser());
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-// set the static files location /public/img will be /img for users
-app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads'));
-
-// configure ROUTES ============================================
+// configure ROUTES before static to avoid 304 status code =======================================
 app = require('./config/config.server')(app); // load config.server to initialise the RUN_ENV
 /*
 modules names are ready: config.modules
@@ -65,6 +61,9 @@ naming convention in 1 routes.js file so,
     /cablirate/record/add (insert|update a record, not quite necessary)
  */
 
+// set the static files location /public/img will be /img for users
+app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads'));
+
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -73,3 +72,45 @@ app.use(function(req, res, next) {
 });
 
 app.listen(port);
+app.on('error', onError);
+app.on('listening', onListening);
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}

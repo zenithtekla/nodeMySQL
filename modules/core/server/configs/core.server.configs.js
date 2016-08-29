@@ -1,6 +1,7 @@
 'use strict';
 var config  = require('./core.config.json'),
-    path    = require('path');
+    path    = require('path'),
+    global_config = require(process.cwd() + '/config/config');
 
 /* CONFIGURATE COREmodule */
 module.exports = function(app, modules, module, module_path){
@@ -10,9 +11,19 @@ module.exports = function(app, modules, module, module_path){
       // routes    = module_path+ '/server/routes/'+ module + '.server.routes',
       // view_path = module_path+'/client/views/',
       // default template engine
-      view_engine = 'pug';
+      view_engine = global_config.default_template_engine,
+      override    = false;
 
-  if (module.re('core')){
+  if (!module.re('core')) {
+    try {
+      config  = require(path.join(module_path, 'server', 'configs', 'module.config.json'));
+      override = true;
+    } catch (ex) {
+      handleErr(ex);
+    }
+  }
+
+  if (module.re('core') || override) {
     root        = config.root || root;
     routes      = config.routes || routes;
     view_path   = config.views || view_path;
@@ -26,4 +37,11 @@ module.exports = function(app, modules, module, module_path){
     router: {root: root, routes: routes},
     view_engine: view_engine
   };
+
+  function handleErr(ex){
+    if (ex instanceof Error && ex.code === "MODULE_NOT_FOUND")
+      console.log(module + "[module.config.json] not found - Use default settings!");
+    else
+      throw ex;
+  }
 };
