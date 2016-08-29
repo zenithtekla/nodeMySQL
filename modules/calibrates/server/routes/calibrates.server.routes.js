@@ -1,9 +1,7 @@
-var express       = require('express'),
-    router        = express.Router(),
-    controller    = require('../controllers/calibrates.server.controllers');
+var controller    = require('../controllers/calibrates.server.controllers');
 
 
-router.route('/calibrate/:calibrate')
+/*router.route('/calibrate/:calibrate')
   .all(function(req, res, next) {
     // runs for all HTTP verbs first
     // think of it as route specific middleware!
@@ -18,7 +16,7 @@ router.route('/calibrate/:calibrate')
   })
   .post(controller.postCalibrate)
   .delete(function(req, res, next) {
-    next(new Error('not implemented'));
+    next(new Error('not implemented')); // res.redirect('/');
   });
 
 router.route('/equipment/:equipment')
@@ -55,10 +53,12 @@ router.route('/record/:record')
   .post(controller.postRecord)
   .delete(function(req, res, next) {
     next(new Error('not implemented'));
-  });
+  });*/
 
-router.get('/table_equipment', controller.equipment)
-  .get('/table_main', controller.main)
-  .get('/table_location', controller.location);
 
-module.exports = router;
+
+module.exports = function(app){
+  app.get('/table_equipment', controller.equipment)
+    .get('/table_main', controller.main)
+    .get('/table_location', controller.location);
+};

@@ -1,5 +1,5 @@
 {
-  "root": null,
+  "root": "/",
   "routes": null,
   "views": null,
   "view_engine": "pug"

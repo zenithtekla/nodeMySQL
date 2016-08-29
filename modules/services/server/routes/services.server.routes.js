@@ -1,29 +1,29 @@
-var express       = require('express'),
-    router        = express.Router(),
-    controller    = require('../controllers/services.server.controllers');
+var controller    = require('../controllers/services.server.controllers');
 
-router.route('/api/work_order/:work_order')
-.all(function(req, res, next) {
-  // runs for all HTTP verbs first
-  // think of it as route specific middleware!
-  next();
-})
-.get(controller.get)
-.put(function(req, res, next) {
-  // just an example of maybe updating the user
-  req.user.name = req.params.name;
-  // save user ... etc
-  res.json(req.user);
-})
-.post(controller.post)
-.delete(function(req, res, next) {
-  next(new Error('not implemented'));
-});
+
 
 /*router.get('/work_order/:work_order', controller.get)
   .post('/work_order', controller.post);*/
 
-module.exports = router;
+module.exports = function(app){
+  app.route('/api/work_order/:work_order')
+    .all(function(req, res, next) {
+      // runs for all HTTP verbs first
+      // think of it as route specific middleware!
+      next();
+    })
+    .get(controller.get)
+    .put(function(req, res, next) {
+      // just an example of maybe updating the user
+      req.user.name = req.params.name;
+      // save user ... etc
+      res.json(req.user);
+    })
+    .post(controller.post)
+    .delete(function(req, res, next) {
+      next(new Error('not implemented'));
+    });
+};
 
 /*
 

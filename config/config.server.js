@@ -25,19 +25,11 @@ module.exports  = function(app){
 
           modules[module] = {};
 
-/*          if (module_subchild.indexOf("configs") > -1){
-            console.log('+ ' + module);
-            loaded.push(module);
-            require(path.join(module_subpath, 'configs', module + '.server.configs'))(app, modules, module, module_path);
-          }
-          else */if (module_subchild.indexOf("routes") > -1) {
-            console.log('/ ' + module);
+          if (module_subchild.indexOf("routes") > -1) {
             loaded.push(module);
             require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, modules, module, module_path);
           }
         }
-
-        // console.log(config.default_template_engine);
       });
     });
 
@@ -46,7 +38,7 @@ module.exports  = function(app){
 
     _.each(modules, function(module){
       if(module){
-        app.use(module.router.root, require(module.router.routes));
+        require(module.routes)(app);
         views.push(module.view_path);
         view_engines.push(module.view_engine);
       }
@@ -55,6 +47,8 @@ module.exports  = function(app){
     app.set('views', views);
     app.set('view engine', 'pug');
 
+    console.log('content loaded: ', loaded);
+
     // resolve 304 status code
     app.disable('etag');
 
@@ -62,7 +56,9 @@ module.exports  = function(app){
     // development error handler
     // will print stacktrace
     if (app.get('env') === 'development') {
-        /*app.use(function(req, res, next) {
+        /*
+        // if-none-match header vs disable('etag'), pages status seems going well with etag disabling
+        app.use(function(req, res, next) {
           req.headers['if-none-match'] = 'no-match-for-this';
           next();
         });*/
@@ -78,6 +74,7 @@ module.exports  = function(app){
         ('NODE_ENV = development').chalk('green');
         JSON.stringify(loaded).chalk('yellow');
         var models = require(process.cwd() + '/modules/core/server/models');
+        app.set('models', models);
 
         // Some DATA-PRESET (pre-insert), e.g. add to assembly table
         /*var buildTask = models.Assembly.create({

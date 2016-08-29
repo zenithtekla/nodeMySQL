@@ -21,9 +21,10 @@ exports.view2 = function (req,res) {
     {"firstName":"Peter", "lastName":"Jones"}
   ]});
 };
-exports.assembly = function (req,res) {
+exports.assembly = (app) => (req,res) => {
+  var Assembly = app.get('models').Assembly;
   // var findTask = Assembly.findById(5);
-  models.Assembly.findAll().then(function(assemblys){
+  Assembly.findAll().then(function(assemblys){
     res.render('assembly_view', { assemblys: assemblys});
   });
 };
