@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title Document
+    body
+        h3='Assembly Listing wit Koa'
+        - if (assemblys.length) {
+        table
+            tr
+                th id
+                th customer_id
+                th Assembly_number
+                th revision
+                th unique_key
+            each assembly in assemblys
+                tr
+                    td= assembly.id
+                    td= assembly.customer_id
+                    td= assembly.number
+                    td= assembly.revision
+                    - if (assembly.unique_key) {
+                    td= assembly.unique_key
+                    - }
+        - }
