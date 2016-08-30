@@ -1,4 +1,7 @@
 # ROADMAP
+#### le 30e, août 2016
+- push Koa experiment to another branch
+- sync local and remote
 
 #### le 28e, août 2016
 - modified core config for more flexibility in Express rendering
