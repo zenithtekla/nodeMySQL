@@ -29,7 +29,7 @@ module.exports  = function(app){
 
           modules[module] = {};
 
-          if (module_subchild.indexOf("routes") > -1) {
+          if (module_subchild.indexOf("routes") > 0) {
             loaded.push(module);
             require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, modules, module, module_path);
           }
@@ -39,9 +39,11 @@ module.exports  = function(app){
 
     // =================================
     console.log("=================================================");
+    console.log('content loaded: ', loaded);
 
     _.each(modules, function(module){
       if(module){
+        app.set('root', module.root);
         require(module.routes)(app);
         views.push(module.view_path);
         view_engines.push(module.view_engine);
@@ -54,8 +56,6 @@ module.exports  = function(app){
 
     app.set('views', views);
     app.set('view engine', 'pug');
-
-    console.log('content loaded: ', loaded);
 
     // resolve 304 status code
     app.disable('etag');

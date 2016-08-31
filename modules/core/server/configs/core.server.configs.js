@@ -7,6 +7,7 @@ var config  = require('./core.config.json'),
 module.exports = function(app, modules, module, module_path){
   var routes    = path.join(module_path, 'server', 'routes', module + '.server.routes'),
       view_path = path.join(module_path,'client', 'views'),
+      root      = '/',
       view_engine = global_config.default_template_engine,
       override    = false;
 
@@ -20,12 +21,14 @@ module.exports = function(app, modules, module, module_path){
   }
 
   if (module.re('core') || override) {
+    root        = config.root || root;
     routes      = config.routes || routes;
     view_path   = config.views || view_path;
     view_engine = config.view_engine || view_engine;
   }  
   
   modules[module] = {
+    root: root,
     view_path: view_path,
     routes: routes,
     view_engine: view_engine

@@ -1,6 +1,8 @@
 // load the models
-var models = require( process.cwd() + '/modules/core/server/models'),
-    env     = process.env.NODE_ENV || "development";
+// var models = require( process.cwd() + '/modules/core/server/models'),
+var db = require( process.cwd() + '/server').get('models'),
+    env     = process.env.NODE_ENV || "development",
+    Assembly = db.Assembly;
 
 exports.view1 = function(req, res) {
   res.render('client_view1', { title: 'About', age: 30, path: __dirname.toString() });
@@ -21,8 +23,7 @@ exports.view2 = function (req,res) {
     {"firstName":"Peter", "lastName":"Jones"}
   ]});
 };
-exports.assembly = (app) => (req,res) => {
-  var Assembly = app.get('models').Assembly;
+exports.assembly = (req,res) => {
   // var findTask = Assembly.findById(5);
   Assembly.findAll().then(function(assemblys){
     res.render('assembly_view', { assemblys: assemblys});

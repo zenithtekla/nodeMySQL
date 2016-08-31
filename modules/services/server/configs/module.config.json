@@ -1,5 +1,5 @@
 {
-  "root": "/xt_syncs",
+  "root": "/palvelut",
   "routes": null,
   "views": null,
   "view_engine": "pug"

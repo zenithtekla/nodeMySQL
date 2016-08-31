@@ -58,6 +58,9 @@ router.route('/record/:record')
 
 
 module.exports = function(app){
+  // root definition is optional
+  var root = app.get('root');
+  
   app.get('/equipment', controller.createEquipment)
     .get('/table_equipment', controller.equipment)
     .get('/table_main', controller.main)

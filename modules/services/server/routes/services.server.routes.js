@@ -6,7 +6,10 @@ var controller    = require('../controllers/services.server.controllers');
   .post('/work_order', controller.post);*/
 
 module.exports = function(app){
-  app.route('/api/work_order/:work_order')
+  // root definition is optional
+  var root = app.get('root');
+
+  app.route(root + '/api/work_order/:work_order')
     .all(function(req, res, next) {
       // runs for all HTTP verbs first
       // think of it as route specific middleware!
