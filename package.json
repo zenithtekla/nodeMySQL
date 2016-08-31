@@ -13,7 +13,7 @@
   "engines": {
     "npm": ">=2.0.0"
   },
-  "scripts":{
+  "scripts": {
     "start": "nodemon server.js NODE_ENV=production",
     "dev": "nodemon server.js NODE_ENV=development"
   },
@@ -37,9 +37,13 @@
     "sequelize-isunique-validator": "^1.1.1"
   },
   "devDependencies": {
-    "eslint": "^3.3.1",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
     "eslint-config-google": "^0.6.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.0",
     "eslint-plugin-lodash": "^1.10.1",
+    "eslint-plugin-react": "^6.2.0",
     "karma": "^1.2.0"
   }
 }

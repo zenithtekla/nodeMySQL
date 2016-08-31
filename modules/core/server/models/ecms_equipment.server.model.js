@@ -2,55 +2,35 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Schema = sequelize.define('ECMS_Equipment', {
+  var Schema;
+  Schema = sequelize.define('ECMS_Equipment' , {
       model: {
-          type: DataTypes.STRING(20),
-          allowNull: false
-      },
+        type: DataTypes.STRING(20) ,
+        allowNull: false
+      } ,
       asset_number: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
+        type: DataTypes.STRING(20) ,
+        allowNull: false ,
         unique: true
-      },
-      location_id: DataTypes.STRING(20),
+      } ,
+      location_id: DataTypes.STRING(20) ,
       status: {
-          type: DataTypes.INTEGER(2).UNSIGNED,
-          allowNull: false,
-          unique: true
+        type: DataTypes.INTEGER(2).UNSIGNED ,
+        defaultValue: 1
       }
-  },
-  {
-      timestamps: false,
-      tableName: 'ECMS_equipment_table',
-      freezeTableName: true,
-      charset: 'utf8',
-      collate: 'utf8_unicode_ci'
-
-      /*, getterMethods   : {
-        fullName       : function()  { return this.firstname + ' ' + this.lastname }
-      },
-
-      setterMethods   : {
-        fullName       : function(value) {
-            var names = value.split(' ');
-
-            this.setDataValue('firstname', names.slice(0, -1).join(' '));
-            this.setDataValue('lastname', names.slice(-1).join(' '));
-        },
-      },
-      classMethods: {
-        generateHash : function(password) {
-        	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        },
-      },
-        instanceMethods: {
-        validPassword : function(password) {
-        	return bcrypt.compareSync(password, this.localpassword);
+    } ,
+    {
+      timestamps: false ,
+      tableName: 'ECMS_equipment_table' ,
+      freezeTableName: true ,
+      charset: 'utf8' ,
+      collate: 'utf8_unicode_ci',
+      getterMethods: {
+        assetNumber: function () {
+          return this.asset_number + ' ' + this.location_id;
         }
       }
-
-      */
-  });
+    });
   // Schema.removeAttribute('id');
   return Schema;
 };

@@ -9,6 +9,10 @@ module.exports  = function(app){
         util    = require('./assets/util'),
         log     = util.log;
 
+    // load models
+    var models = require(process.cwd() + '/modules/core/server/models');
+    app.set('models', models);
+
     // view engine setup ==============
     var modules = {}, loaded = [], views = [], view_engines = [];
 
@@ -43,6 +47,10 @@ module.exports  = function(app){
         view_engines.push(module.view_engine);
       }
     });
+    
+    /* swig & handlebars require engine to be declared
+    app.engine('html', swig.renderFile);
+    */
 
     app.set('views', views);
     app.set('view engine', 'pug');
@@ -73,9 +81,7 @@ module.exports  = function(app){
 
         ('NODE_ENV = development').chalk('green');
         JSON.stringify(loaded).chalk('yellow');
-        var models = require(process.cwd() + '/modules/core/server/models');
-        app.set('models', models);
-
+      
         // Some DATA-PRESET (pre-insert), e.g. add to assembly table
         /*var buildTask = models.Assembly.create({
           customer_id: 6,

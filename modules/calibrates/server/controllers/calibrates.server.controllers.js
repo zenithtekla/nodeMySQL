@@ -1,19 +1,38 @@
 // load the models
-var models = require( process.cwd() + '/modules/core/server/models'),
-    cors   = require('cors');
+// var models = require( process.cwd() + '/modules/core/server/models'),
+//     ECMS_Equipment  = models.ECMS_Equipment;
+var db = require( process.cwd() + '/server').get('models'),
+    cors   = require('cors'),
+    ECMS_Equipment  = db.ECMS_Equipment,
+    ECMS_Main       = db.ECMS_Main,
+    ECMS_Location   = db.ECMS_Location;
+    // ;
+
 /* initial dumps from tables */
-exports.equipment = function (req, res) {
-  models.ECMS_Equipment.findAll().then(function(equipments){
+exports.equipment = (req, res) => {
+  ECMS_Equipment.findAll().then(function(equipments){
     res.render('equipment', { equipments: equipments});
   });
 };
 exports.main = function (req, res) {
-  models.ECMS_Main.findAll().then(function(mains){
+  ECMS_Main.findAll().then(function(mains){
     res.render('main', { mains: mains});
   });
 };
+
+exports.createEquipment = function (req, res) {
+  ECMS_Equipment.create({
+    asset_number: 'asset06',
+    location_id: 'coordinates005-008',
+    model: 'someModel1'
+  }).then(function(new_equipment){
+    res.json(new_equipment.assetNumber);
+  });
+
+};
+
 exports.location = function (req, res) {
-  models.ECMS_Location.findAll().then(function(locations){
+  ECMS_Location.findAll().then(function(locations){
     res.render('location', { locations: locations});
   });
 };
@@ -28,7 +47,7 @@ exports.calibrate = function (req, res) {
 };
 
 exports.record = function (req, res) {
-  models.Record.findAll().then(function(records){
+  Record.findAll().then(function(records){
     res.render('record', { records: records});
   });
 };

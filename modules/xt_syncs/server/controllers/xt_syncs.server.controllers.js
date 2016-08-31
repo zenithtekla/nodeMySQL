@@ -30,6 +30,10 @@ exports.assembly = (app) => (req,res) => {
 };
 
 // a pattern to use simple mySQL npm with poolConnection
+/* edit 08/30/2016, it is also possible to execute raw query with sequelize:
+  sequelize.query('query', [, model], [, options], [, replacements])
+    .success(function(rows) {});
+*/
 exports.project = function (req,res) {
   var mysql   = require('mysql');
   console.log('my process is ', process.cwd());

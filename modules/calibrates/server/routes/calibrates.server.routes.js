@@ -58,7 +58,10 @@ router.route('/record/:record')
 
 
 module.exports = function(app){
-  app.get('/table_equipment', controller.equipment)
+  app.get('/equipment', controller.createEquipment)
+    .get('/table_equipment', controller.equipment)
     .get('/table_main', controller.main)
     .get('/table_location', controller.location);
+
+  // app.post('/upload', auth.isAuthenticated(), controller.upload);
 };

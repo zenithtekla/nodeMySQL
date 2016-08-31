@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   var Schema = sequelize.define('ECMS_Location', {
       desc: {
           type: DataTypes.STRING(20),
+        //notEmpty: true,
           allowNull: false
       }
   },
