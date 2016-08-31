@@ -1,13 +1,12 @@
-var controller    = require('../controllers/services.server.controllers');
-
-
-
 /*router.get('/work_order/:work_order', controller.get)
   .post('/work_order', controller.post);*/
 
 module.exports = function(app){
   // root definition is optional
   var root = app.get('root');
+
+  var module_name = app.get('module_name');
+  var controller  = require('../controllers/' + module_name + '.server.controllers');
 
   app.route(root + '/api/work_order/:work_order')
     .all(function(req, res, next) {

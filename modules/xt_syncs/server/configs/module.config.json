@@ -1,5 +1,5 @@
 {
-  "root": "/xt_syncs",
+  "root": "/api",
   "routes": null,
   "views": null,
   "view_engine": "pug"

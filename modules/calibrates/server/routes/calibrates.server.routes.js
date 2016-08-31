@@ -1,6 +1,3 @@
-var controller    = require('../controllers/calibrates.server.controllers');
-
-
 /*router.route('/calibrate/:calibrate')
   .all(function(req, res, next) {
     // runs for all HTTP verbs first
@@ -60,6 +57,9 @@ router.route('/record/:record')
 module.exports = function(app){
   // root definition is optional
   var root = app.get('root');
+
+  var module_name = app.get('module_name');
+  var controller  = require('../controllers/' + module_name + '.server.controllers');
   
   app.get('/equipment', controller.createEquipment)
     .get('/table_equipment', controller.equipment)

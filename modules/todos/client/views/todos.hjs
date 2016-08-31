@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todos with tasks</title>
+</head>
+<body>
+<ol>
+  {{#todos}}
+  <li>{{task}} {{description}}</li>
+  {{/todos}}
+</ol>
+</body>
+</html>

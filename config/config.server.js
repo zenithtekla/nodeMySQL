@@ -26,9 +26,6 @@ module.exports  = function(app){
         var module_subchild = util.getDirectories(module_subpath);
 
         if(sub.re("server")){
-
-          modules[module] = {};
-
           if (module_subchild.indexOf("routes") > 0) {
             loaded.push(module);
             require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, modules, module, module_path);
@@ -41,28 +38,13 @@ module.exports  = function(app){
     console.log("=================================================");
     console.log('content loaded: ', loaded);
 
-    _.each(modules, function(module){
-      if(module){
-        app.set('root', module.root);
-        require(module.routes)(app);
-        views.push(module.view_path);
-        view_engines.push(module.view_engine);
-      }
-    });
-    
-    /* swig & handlebars require engine to be declared
-    app.engine('html', swig.renderFile);
-    */
-
-    app.set('views', views);
-    app.set('view engine', 'pug');
+    // app.set('views', views);
+    // app.set('view engine', 'pug');
 
     // resolve 304 status code
     app.disable('etag');
 
-    /// error handlers
-    // development error handler
-    // will print stacktrace
+
     if (app.get('env') === 'development') {
         /*
         // if-none-match header vs disable('etag'), pages status seems going well with etag disabling
@@ -71,6 +53,9 @@ module.exports  = function(app){
           next();
         });*/
 
+        /// error handlers
+        // development error handler
+        // will print stacktrace
         app.use(function(err, req, res, next) {
             res.status(err.status || 500);
             res.render('error', {
