@@ -36,7 +36,6 @@ module.exports  = function(app){
 
     // =================================
     console.log("=================================================");
-    console.log('content loaded: ', loaded);
 
     // app.set('views', views);
     // app.set('view engine', 'pug');

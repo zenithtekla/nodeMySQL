@@ -6,5 +6,12 @@ module.exports = function(app){
   var module_name = app.get('module_name');
   var controller  = require('../controllers/' + module_name + '.server.controllers');
 
-  app.get(root + '/todos', controller.todos);
+  app.route('/tasks').all(/* taskPolicy.isAllowed */)
+    .get(controller.list)
+    .post(controller.create);
+
+  app.route('/tasks/:taskId')
+    .get(controller.read)
+    .put(controller.update)
+    .delete(controller.delete);
 };
