@@ -2,7 +2,6 @@
 // var models = require( process.cwd() + '/modules/core/server/models'),
 //     ECMS_Equipment  = models.ECMS_Equipment;
 var db = require( process.cwd() + '/server').get('models'),
-    cors   = require('cors'),
     ECMS_Equipment  = db.ECMS_Equipment,
     ECMS_Main       = db.ECMS_Main,
     ECMS_Location   = db.ECMS_Location;

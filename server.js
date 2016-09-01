@@ -4,6 +4,7 @@
 var express         = require('express'),
     morgan          = require('morgan'),
     app             = module.exports = express(),
+    cors            = require('cors'),
     config          = require('./config/config'),
     path            = require('path'),
     favicon         = require('favicon'), // or require('serve-favicon');
@@ -26,6 +27,9 @@ mongoose.connect(db.url);*/
 // configuration with middlewares ==============================
 // use morgan logger
 app.use(morgan('combined'));
+
+// use cors
+app.use(cors());
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

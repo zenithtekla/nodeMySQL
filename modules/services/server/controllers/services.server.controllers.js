@@ -1,6 +1,5 @@
 var services      = require('../configs/web_services.json'),
     ERPservices   = services["erp-2"],
-    cors          = require('cors'),
     request       = require('request'),
     soapURI       = ERPservices.work_order;
 
