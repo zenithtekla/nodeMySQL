@@ -4,7 +4,7 @@ var config  = require('./core.config.json'),
     global_config = require(process.cwd() + '/config/config');
 
 /* CONFIGURATE COREmodule */
-module.exports = function(app, modules, module, module_path){
+module.exports = function(app, module, module_path){
   var routes      = path.join(module_path, 'server', 'routes', module + '.server.routes'),
       view_path   = path.join(module_path,'client', 'views'),
       root        = '',

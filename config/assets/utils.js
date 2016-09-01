@@ -1,8 +1,11 @@
+'use strict';
+
 var fs      = require('fs'),
     path    = require('path'),
     chalk   = require('chalk'),
     log     = require('chalk-log'),
     _       = require('lodash');
+
 module.exports = {
   getDirectories: function (srcpath) {
     return fs.readdirSync(srcpath).filter(function(file) {

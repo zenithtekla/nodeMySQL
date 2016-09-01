@@ -1,12 +1,12 @@
 'use strict';
-var path  = require('path'),
-    util  = require('./assets/util');
+var path   = require('path'),
+    utils  = require('./assets/utils');
 
 var initGlobalConfig = function(){
   return {
         port: process.env.PORT || 1337,
-        modules: util.getDirectories('modules'),
-        apps: util.getAppsDir('modules'),
+        modules: utils.getDirectories('modules'),
+        apps: utils.getAppsDir('modules'),
         base_path: path.join(__dirname, '../'),
         default_template_engine: 'pug'
         /*

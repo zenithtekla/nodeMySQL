@@ -68,3 +68,16 @@ module.exports = function(app){
 
   // app.post('/upload', auth.isAuthenticated(), controller.upload);
 };
+
+/*
+ modules names are ready: config.modules
+ naming convention in 1 routes.js file so,
+ /cablirate/index (getAll() to display all records with statuses,
+ containing action ribbons for equipment, record)
+ /cablirate/equipment (getAll() to display all equipments, not quite necessary)
+ /cablirate/equipment/add (insert|update)
+ /cablirate/equipment/:equipment (post to retrieve related equipment data)
+ /cablirate/record (getAll() to display all records)
+ /cablirate/record/:record
+ /cablirate/record/add (insert|update a record, not quite necessary)
+ */
