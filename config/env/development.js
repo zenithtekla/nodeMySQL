@@ -1,6 +1,7 @@
 'use strict';
 
-var morgan  = require('morgan');
+var morgan  = require('morgan'),
+    session         = require('express-session'); // easy-node-authentication.git
 
 /* CONFIGURATE RUN ENV */
 module.exports  = function(app){
@@ -18,6 +19,10 @@ module.exports  = function(app){
 
   // use morgan logger
   app.use(morgan('dev'));
+
+  app.use(session({
+    secret: 'keyboard cat'
+  }));
 
   /// error handlers
   // development error handler

@@ -7,10 +7,10 @@ var config  = require('./config'),
 
 module.exports  = function(app){
   // view engine setup ==============
-  var loaded = [];
+  var loaded = [], moduls = [], apps = {};
 
-  _.each(config.modules, function(module){
-    var module_path = path.join(process.cwd(), 'modules', module),
+  _.each(config.modules, function(modul){
+    var module_path = path.join(process.cwd(), 'modules', modul),
       module_sub  = utils.getDirectories(module_path);
 
     _.each(module_sub, function(sub){
@@ -20,12 +20,18 @@ module.exports  = function(app){
 
       if(sub.re("server")){
         if (module_subchild.indexOf("routes") > 0) {
-          loaded.push(module);
-          require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, module, module_path);
+          loaded.push(modul);
+          require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, moduls, modul, module_path);
         }
       }
     });
   });
+
+  _.forOwn(moduls, function(val,key){
+     apps[key] = val._router.stack;
+  });
+
+  app.set('apps', apps);
 
   JSON.stringify(loaded).chalk('yellow');
 };

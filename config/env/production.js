@@ -1,6 +1,7 @@
 'use strict';
 
-var morgan  = require('morgan');
+var morgan  = require('morgan'),
+    session         = require('express-session');
 
 /* CONFIGURATE RUN ENV */
 module.exports  = function(app){
@@ -11,6 +12,17 @@ module.exports  = function(app){
 
   // use morgan logger
   app.use(morgan('combined'));
+
+  var sess = {
+    secret: 'keyboard cat',
+    cookie: {}
+  };
+
+
+  app.set('trust proxy', 1); // trust first proxy
+  sess.cookie.secure = true; // serve secure cookies
+
+  app.use(session(sess));
 
   // production error handler
   // no stacktraces leaked to user

@@ -1,9 +1,12 @@
-var db  = require( process.cwd() + '/server').get('models'),
-    Todo = db.Todo;
+var db    = require( process.cwd() + '/server').get('models'),
+    Todo  = db.Todo,
+    app   = require( process.cwd() + '/server');
+    // apps  = require( process.cwd() + '/modules/core/server/configs/core.server.configs').apps;
 
 exports.list = (req,res) => {
   // var findTask = Todo.findById(5);
   Todo.findAll().then(function(tasks){
+    console.log(tasks);
     res.render('list', { tasks: tasks});
   });
 
@@ -30,13 +33,15 @@ exports.create = (req,res) => {
 };
 
 exports.read = (req,res) => {
-  res.status(200).send('ok');
+  var apps = app.get('apps');
+  res.status(200).send({message:'TODO get an existing post by using param ' + req.params.taskId, apps: apps, core: app._router.stack});
 };
 
 exports.update = (req,res) => {
-  res.status(200).send('ok');
+  res.status(200).send({message:'TODO modify an existing post by using param ' + req.params.taskId});
 };
 
 exports.delete = function(req, res, next) {
-  next(new Error('not implemented'));
+  res.send({message:'TODO delete an existing post by using param ' + req.params.taskId});
+  // next(new Error('not implemented'));
 };

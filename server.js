@@ -1,6 +1,6 @@
 'use strict';
 var express         = require('express'),
-    app             = module.exports = express(),    
+    app             = module.exports = express(),
     config          = require('./config/config'),
     port            = config.port // server port
 ;
@@ -11,6 +11,7 @@ app = require('./config/config.server')(app); // load config.server to initialis
 app.listen(port);
 app.on('error', onError);
 app.on('listening', onListening);
+console.log('listening on port', port);
 
 /**
  * Event listener for HTTP server "error" event.

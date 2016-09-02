@@ -6,11 +6,11 @@
 <body>
 <ol>
   {{#tasks}}
-  <li>{{task}} {{description}} - {{due}}</li>
+  <li>{{task}} {{description}} - {{due}} - taskId: {{id}} ---------- <a href='tasks/{{id}}'>view</a></li>
   {{/tasks}}
 </ol>
 <div class="CreateTask">
-  <form class="formCreateTask" role="form" action="/todos/tasks" method="POST">
+  <form class="formCreateTask" role="form" action="tasks" method="POST">
     <div class="form-group">
       <label for="fieldTitle">Task</label><input type="text" id="fieldTitle" name="task">
       <label for="fieldDescription">Description</label><input type="text" id="fieldDescription" name="description">

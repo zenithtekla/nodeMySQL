@@ -4,15 +4,16 @@ var config  = require('./core.config.json'),
     global_config = require(process.cwd() + '/config/config');
 
 /* CONFIGURATE COREmodule */
-module.exports = function(app, module, module_path){
-  var routes      = path.join(module_path, 'server', 'routes', module + '.server.routes'),
+module.exports = function(app, moduls, modul, module_path){
+  var routes      = path.join(module_path, 'server', 'routes', modul + '.server.routes'),
       view_path   = path.join(module_path,'client', 'views'),
       root        = '',
       view_engine = global_config.default_template_engine,
       express     = require('express'),
       override    = false;
+  console.log(modul);
 
-  if (!module.re('core')) {
+  if (!modul.re('core')) {
     try {
       config  = require(path.join(module_path, 'server', 'configs', 'module.config.json'));
       override = true;
@@ -21,31 +22,32 @@ module.exports = function(app, module, module_path){
     }
   }
 
-  if (module.re('core') || override) {
+  if (modul.re('core') || override) {
     root        = config.root || root;
     routes      = config.routes || routes;
     view_path   = config.views || view_path;
     view_engine = config.view_engine || view_engine;
   }
 
-  if (module.re('core')){
+  if (modul.re('core')){
     register(app);
   } else {
-    var sub = express();
+    moduls[modul] = express();
+    var sub = moduls[modul];
     register(sub);
-    app.use('/' + module, sub);
+    app.use('/' + modul, sub);
   }
 
   function handleErr(ex){
     if (ex instanceof Error && ex.code === "MODULE_NOT_FOUND")
-      console.log(module + "[module.config.json] not found - Use default settings!");
+      console.log(modul + "[module.config.json] not found - Use default settings!");
     else
       throw ex;
   }
 
   function register(app){
     app.set('root', root);
-    app.set('module_name', module);
+    app.set('module_name', modul);
 
     require(routes)(app);
 
