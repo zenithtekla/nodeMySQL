@@ -7,8 +7,6 @@
 .sass-cache/
 node_modules/
 public/lib/
-config/db/
-config/db/*.*
 app/tests/coverage/
 .bower-*/
 .idea/

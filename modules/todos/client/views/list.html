@@ -5,9 +5,9 @@
 </head>
 <body>
 <ol>
-  {{#tasks}}
-  <li>{{task}} {{description}} - {{due}} - taskId: {{id}} ---------- <a href='tasks/{{id}}'>view</a></li>
-  {{/tasks}}
+  {% for task in tasks %}
+  <li>{{task.task}} {{ task.desc }} - taskId: {{task.id}} ---------- <a href='tasks/{{task.id}}'>view</a></li>
+  {% endfor %}
 </ol>
 <div class="CreateTask">
   <form class="formCreateTask" role="form" action="/todos/tasks" method="POST">

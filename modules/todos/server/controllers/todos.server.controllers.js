@@ -6,7 +6,6 @@ var db    = require( process.cwd() + '/server').get('models'),
 exports.list = (req,res) => {
   // var findTask = Todo.findById(5);
   Todo.findAll().then(function(tasks){
-    console.log(tasks);
     res.render('list', { tasks: tasks});
   });
 
@@ -38,10 +37,31 @@ exports.read = (req,res) => {
 };
 
 exports.update = (req,res) => {
-  res.status(200).send({message:'TODO modify an existing post by using param ' + req.params.taskId});
+  /*var todo = Todo.build();
+  todo.desc = req.body.desc;
+  todo.due         = req.body.due;
+
+  Todo.updateById(req.params.taskId, function(success) {
+    console.log(success);
+    if (success) {
+      res.json({ message: 'User updated!' });
+    } else {
+      res.send(401, "User not found");
+    }
+  }, function(error) {
+    res.send("User not found");
+  });*/
+  var request = req;
+
+  Todo.update(req.body,{where: {id: req.params.taskId} })
+    .then(function(){
+      res.status(200).send({message:'modified an existing post by using param ' + req.params.taskId, body : request});
+    });
 };
 
 exports.delete = function(req, res, next) {
-  res.send({message:'TODO delete an existing post by using param ' + req.params.taskId});
+  Todo.destroy({where: {id: req.params.taskId}}).then(function(){
+    res.send({message:'deleted an existing post by using param ' + req.params.taskId});
+  });
   // next(new Error('not implemented'));
 };

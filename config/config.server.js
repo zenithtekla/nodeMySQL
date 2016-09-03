@@ -58,13 +58,15 @@ module.exports  = function(app){
 
   if (app.get('env') === 'test') require('./env/test')(app);
 
+  // set the static files location /public/img will be /img for users
+  app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads')); http://expressjs.com/en/starter/static-files.html
+
+
   // render views
   require('./config.view')(app);
 
   console.log("===================================================");
 
-  // set the static files location /public/img will be /img for users
-  app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads'));
   app.use(passport.initialize());
   app.use(passport.session());
 
