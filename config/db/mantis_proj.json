@@ -1,0 +1,13 @@
+[{
+  "_id": "int(10)",
+  "access_min": "smallint(5), can be configured with Meteor|NodeJS apps through middleware",
+  "description": "longtext, project description",
+  "enabled": "tinyint(3) would go by {status}",
+  "file_path": "varchar(250), can be handled through Meteor|NODE_PATH|process.cwd()",
+  "inherit_global": "varchar(250), can be handled internally within Meteor|NodeJS through json and config files, the server might take a little extra time to load but once started, no need to maintain constant communication|relation to the database, Mantis configurations rely heavily on tables",
+  "name":"varchar(128), project name",
+  "status": "smallint(5), status?",
+  "view_state": "smallint(5), unlike Javascript where $state exec|chain, Event-Driven Env, event handlers, concurrency and queueing requests are supported, PHP can't handle state so it resorts to a state field in the database and the complexity in database design stacks up and builds fast."
+},{
+
+}]

@@ -1,0 +1,105 @@
+{
+  "name": "Mantrac - applicationName",
+  "author": "Phuc Tran",
+  "version": "v0.0.1",
+  "method": "software methodology of the app adheres to IEEE standards, Agile-RAD, 4GL-high abstraction, extra protocol and additional best practices, highly reusable, flexible, scalable and extensible, less boilerplate code, native BSON|JSON data support for performance wise, native objects and JS support for browsers, minified script on output, ease the implementation, quick deployment and fast to apply in production, easy to apply changes from development to production",
+  "technologies": [
+    "TypeScript",
+    "Javascript ES6 or higher",
+    "Meteor",
+    "Meteor-React",
+    "Meteor-Angular2",
+    "NodeJS",
+    "MEAN stack",
+    "miniMongo",
+    "mongoDB",
+    "multiple template engines flexibly available for multiple code styles: CoffeeScript, JSX-React, Handlebars, Pug, EJS,...",
+    "code quality standards: ESLint, Linting, ",
+    "VCS - Git VCS is the primary",
+    "IDE - integrated BASH, Database navigator, Diff Tools, Code Inspections, Completion and Emmet, JSON, TS & Jade Lint, registered File Watchers, JSX render, Debugger: DataView, Stepping, Live Edit",
+    "package management - bower, npm and meteor package manager|bundler, possible to engineer and provide Yeoman scaffolding generators",
+    "automation - build tool provided by Meteor or Brunch in NodeJS"
+  ],
+  "documentation": [
+    "engineer.md - story map of app engineering",
+    "roadmap.md - roadmap of dev",
+    "validation.md - roadmap of testing, performance, and logging",
+    "readme.md - documentation of installation and use",
+    "common.md - documentation of common knowledge",
+    "migration.md - documentation of migration protocol and progress from MySQL to MongoDB"
+  ],
+  "validation": "verified by ..",
+  "licence": "MIT - OpenSource",
+  "subApps": "reflective of mantis_plugin_table. In Mantrac|Manuke, the main Application is highly engineered and forked to host a string of subApps - aka - MantisBT.plugins, each subApp can have its own method of render, not excluding to template engine",
+  "annotation": "app Content falls below",
+  "content": {
+    "emails": "this emails document is reflective of mantis_email_table",
+    "categories": [
+      {
+        "_id": "categoryId",
+        "name": "categoryName XYZT",
+        "description": "categoryDesc",
+        "content": {
+          "projects": [
+            {
+              "_id": "projectId",
+              "name": "projectName XYZ",
+              "description": "project description",
+              "files": "project-wide file_table, aka. mantis_project_file_table",
+              "content": {
+                "bugs": [
+                  {
+                    "_id": "bugId",
+                    "description": "bugSummary",
+                    "files": "bugFiles document is the representation of mantis_bug_file_table",
+                    "monitors": "bugMonitor",
+                    "relationships": "bugRelationships",
+                    "tags": "tags of a bug",
+                    "notes": "bugNotes",
+                    "state": "assigned|unassigned|reported|confirmed|acknowledged|recently modified|new|closed|resolved|monitored|feedback(awaiting feedback)|my comments(from users collection)",
+                    "customFields": {
+                      "sales_order": "so_field_is an object document likes the assembly_number below",
+                      "assembly": {
+                        "_id": "assemblyId",
+                        "number": "assembly_number XYZT",
+                        "revision": "revision"
+                      },
+                      "fieldX": "additional fields can be appended to the Document customFields easily, and that the collection Container is updated, so is our main Project collection"
+                    }
+                  }
+                ]
+              },
+              "version": "projectX version v.0.0.1",
+              "configs": "register configurations apply to this Project",
+              "methods": "register setter, getter and handler methods",
+              "policies": "register policies - user priveleges, for example: ['admin'] available to administrators only"
+            }
+          ]
+        },
+        "configs": "register configurations apply to this Category",
+        "methods": "register setter, getter and handler methods",
+        "policies": "register policies - user priveleges"
+      }
+    ]
+  },
+  "users": [
+    "x",
+    "y for the sake of simplicity design, scalable to have x, y as document objects",
+    {
+      "_id": "userId",
+      "name": "userName",
+      "realname":"realName",
+      "password":"password bcrypt hash",
+      "email": "JohnDoe@email.com",
+      "status": "status of this category available ? to user",
+      "prefs": "user preferences",
+      "roles": ["*", "admin","user","reporter", "maintainer"],
+      "salt": "salted hash",
+      "image": "profileImage",
+      "social": "social Channel where the user first joined, Google_strategy, Facebook_strategy, Twitter_strategy for users join on passport() middleware authentication"
+    }
+  ],
+  "configs": "register configurations apply to this Application",
+  "methods": "register setter, getter and handler methods",
+  "policies": "register policies - user priveleges"
+}

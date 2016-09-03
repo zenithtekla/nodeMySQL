@@ -62,11 +62,19 @@ module.exports = function(app, moduls, modul, module_path){
 
     // for angularJS : it is best to use 'pug', 'ejs' or 'html' template defined in module.config.json
 
-    if (view_engine.re('ejs') || view_engine.re('html')) {
+    if (view_engine.re('angular') || view_engine.re('html')) {
        app.engine('html', require('ejs').renderFile);
        app.set('views', view_path);
        app.set('view engine', 'html');
     }
+
+    // for 'ejs', clearly specify it 'ejs' in module.config.json
+    if (view_engine.re('ejs') || view_engine.re('html')) {
+      app.engine('html', require('ejs').renderFile);
+      app.set('views', view_path);
+      app.set('view engine', 'ejs');
+    }
+    
     // for swig, the following should work.
     if (view_engine.re('swig')) {
       var swig = require('swig');
