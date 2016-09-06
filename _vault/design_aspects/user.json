@@ -3,6 +3,10 @@
   "age": 37,
   "hometown": "Manchester",
   "location": [45.123, 47.232],
+  "projects": {
+    "id": 1,
+    "name": "proj1_name"
+  },
   "tasks": [
     {
       "taskId": 1,
@@ -15,22 +19,21 @@
       "title": "task2 Title",
       "description": "task2 Description",
       "due": "01/09/2000"
-    },
-    {
-      "taskId": 3,
-      "title": "task3 Title",
-      "description": "task3 Description",
-      "due": "01/09/2001"
     }
   ],
-  "registered date": "2011-07-14 19:43:37 +0100",
-  "last seen": 1310669017000,
+  "registered_date": "2011-07-14 19:43:37 +0100",
+  "last_seen": 1310669017000,
+  "active": 1,
   "roles": ["admin", "user"]
 },{
   "name": "Sophia",
   "age": 38,
   "hometown": "Dublin",
   "location": [45.325, 47.275],
+  "projects": {
+    "id": 2,
+    "name": "proj2_name"
+  },
   "tasks": [
     {
       "taskId": 1,
@@ -43,15 +46,10 @@
       "title": "task2 Title",
       "description": "task2 Description",
       "due": "08/12/2000"
-    },
-    {
-      "taskId": 3,
-      "title": "task3 Title",
-      "description": "task3 Description",
-      "due": "08/12/2001"
     }
   ],
-  "registered date": "2012-09-13 19:43:37 +0100",
-  "last seen": 1310669017777,
+  "registered_date": "2012-09-13 19:43:37 +0100",
+  "last_seen": 1310669017777,
+  "active": 0,
   "roles": ["user"]
 }]

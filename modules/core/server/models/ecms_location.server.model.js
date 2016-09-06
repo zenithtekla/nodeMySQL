@@ -14,7 +14,13 @@ module.exports = function(sequelize, DataTypes) {
       tableName: 'ECMS_location_table',
       freezeTableName: true,
       charset: 'utf8',
-      collate: 'utf8_unicode_ci'
+      collate: 'utf8_unicode_ci',
+      classMethods: {
+        associate: function(models){
+          // hasOne - foreignKey sits on the Equipment (target) table, this Schema is the source table
+          Schema.hasOne(models.ECMS_Equipment, { as: 'Location', foreignKey: 'location_id' } );
+        }
+      }
   });
 
   return Schema;

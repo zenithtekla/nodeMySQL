@@ -25,7 +25,7 @@
     "roadmap.md - roadmap of dev",
     "validation.md - roadmap of testing, performance, and logging",
     "readme.md - documentation of installation and use",
-    "common.md - documentation of common knowledge",
+    "common.md - documentation of common knowledge Q&A. FAQs",
     "migration.md - documentation of migration protocol and progress from MySQL to MongoDB"
   ],
   "validation": "verified by ..",
@@ -87,16 +87,23 @@
     "y for the sake of simplicity design, scalable to have x, y as document objects",
     {
       "_id": "userId",
-      "name": "userName",
-      "realname":"realName",
+      "username": "userName",
+      "displayName":"realName",
       "password":"password bcrypt hash",
       "email": "JohnDoe@email.com",
       "status": "status of this category available ? to user",
       "prefs": "user preferences",
       "roles": ["*", "admin","user","reporter", "maintainer"],
       "salt": "salted hash",
-      "image": "profileImage",
-      "social": "social Channel where the user first joined, Google_strategy, Facebook_strategy, Twitter_strategy for users join on passport() middleware authentication"
+      "profileImageURL": "profileImage",
+      "provider": "social Channel where the user first joined, Google_strategy, Facebook_strategy, Twitter_strategy for users join on passport() middleware authentication",
+      "providerData": "data from social Channel",
+      "login_count": 11,
+      "protected": 1,
+      "last_visit": "01/09/2016",
+      "date_created": "01/01/2016",
+      "resetPasswordToken": "tokenString",
+      "resetPasswordExpires": "01/11/2016"
     }
   ],
   "configs": "register configurations apply to this Application",

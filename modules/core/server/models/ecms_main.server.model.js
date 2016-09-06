@@ -18,7 +18,12 @@ module.exports = function(sequelize, DataTypes) {
       tableName: 'ECMS_main_table',
       freezeTableName: true,
       charset: 'utf8',
-      collate: 'utf8_unicode_ci'
+      collate: 'utf8_unicode_ci',
+      classMethods: {
+        associate: function(models){
+          Schema.hasMany(models.ECMS_Equipment, { as: 'Equipment', foreignKey:'asset_number'})
+        }
+      }
   });
 
   return Schema;

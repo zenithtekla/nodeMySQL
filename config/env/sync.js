@@ -6,7 +6,7 @@ var utils   = require('../assets/utils'),
 module.exports  = function(app) {
   var models = app.get('models');
 
-  models.sequelize.sync({/*force: true, logging: console.log*/}).then(function (task) {
+  models.sequelize.sync({force: true, logging: console.log}).then(function (task) {
     log.ok('database sync successful.');
     // buildTask.save();
     // console.log(arguments);
