@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(20),
         allowNull: false
       },
-      desc: DataTypes.INTEGER(20),
+      desc: DataTypes.STRING(20),
       due: DataTypes.DATE()
     },
     {
