@@ -16,17 +16,17 @@ var Schema1 = new Schema({
   last_cal: Date,
   schedule: Number,
   next_cal: Date,
-  file: {
+  files: [{
+    id: Number,
+    name: String,
     data: Buffer,
     contentType: String
-  },
-  models: [{
-    model: String,
-    location: {
-      id: Number,
-      desc: String
-    }
-  }]
+  }],
+  model: String,
+  location: {
+    id: Number,
+    desc: String
+  }
 });
 
 mongoose.model('User', Schema1);

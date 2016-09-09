@@ -57,18 +57,18 @@ exports.update = (req,res) => {
     });
   }
 
-  Query.update({status: req.body.status},{where: {id: req.params.id, status: 0} })
+  Query.update({status: req.body.status},{ fields: ['status'], where: {id: req.params.id, status: 0} })
     .then(function(record){
       res.json('ok');
     }).catch(function(err){
-      if (err) { res.send(err); return; }
+      // if (err) { res.send(err); return; }
   });
 };
 
 exports.delete = function(req, res, next) {
   // verify and disregard if query is still on pending state.
   Query.destroy({where: {id: req.params.id, $not: [{status: 0}]}}).then(function(){
-    res.send({message:'deleted an existing record @ param ' + req.params.id});
+    res.send({message:'@param ' + req.params.id});
   }).catch(function(err){
     res.json({message: 'error encountered', err: err});
   });

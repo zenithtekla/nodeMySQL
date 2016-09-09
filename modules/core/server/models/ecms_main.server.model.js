@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       collate: 'utf8_unicode_ci',
       classMethods: {
         associate: function(models){
-          Schema.hasMany(models.ECMS_Equipment, { as: 'Equipment', foreignKey:'asset_number'})
+          Schema.hasOne(models.ECMS_Equipment, { as: 'Equipment'});
         }
       }
   });
