@@ -42,18 +42,15 @@ exports.read = (req,res) => {
   }).catch(function(err){
     res.json({message: 'error encountered', err: err});
   });
-  // res.status(200).send({message:'TODO get an existing post by using param ' + req.params.id, apps: apps, core: app._router.stack});
 };
 
 exports.update = (req,res) => {
-  console.log(req.body.status);
   // var payload = req.body.status;
   // Explicit or implicit, salt and protect the req.body, param: { status: 1 } or param: { status: -1 } when angular POST it to the server
   if (req.body.status === 1) {
     Query.findById(req.params.id).then(function (record) {
       if(record.dataValues.status !== 0){
-        res.json('Not a pending query to update');
-        return;
+        return res.json('Not a pending query to update!');
       }
 
       execRawQuery(record.dataValues.query_text);
@@ -62,20 +59,9 @@ exports.update = (req,res) => {
 
   Query.update({status: req.body.status},{where: {id: req.params.id, status: 0} })
     .then(function(record){
-      res.status(200).send('ok');
-      // console.log(arguments);
-      /*if (req.body.status === -1){
-        res.status(200).send({message:'disapproved record @ param ' + req.params.id, record : req.body});
-      } else {
-        console.log('HERE', record);
-        execRawQuery(record.dataValues.query_text);
-        res.status(200).send({message:'approved record @ param ' + req.params.id, record : req.body});
-      }*/
-
-      /*// set status = 1 and execute the query. TODO: add a Sequelize method to handle custom query execution.
-      res.status(200).send({message:'modified an existing record @ param ' + req.params.id, record : req.body, rec: rec.dataValues});*/
+      res.json('ok');
     }).catch(function(err){
-    res.json({message: 'error encountered', err: err});
+      if (err) { res.send(err); return; }
   });
 };
 
@@ -89,10 +75,8 @@ exports.delete = function(req, res, next) {
   // next(new Error('not implemented'));
 };
 
-// execRawQuery(rec.dataValues.query_text);
+// execRawQuery(record.dataValues.query_text);
 function execRawQuery(query){
   sequelize.query(query).spread(function(results, metadata){
-
   });
-  // processing the query statement
 }
