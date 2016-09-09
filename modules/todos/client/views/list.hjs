@@ -6,7 +6,7 @@
 <body>
 <ol>
   {{#tasks}}
-  <li>{{task}} {{description}} - {{due}} - taskId: {{id}} ---------- <a href='tasks/{{id}}'>view</a></li>
+  <li>{{task}} {{desc}} - {{due}} - taskId: {{id}} ---------- <a href='tasks/{{id}}'>view</a></li>
   {{/tasks}}
 </ol>
 <div class="CreateTask">

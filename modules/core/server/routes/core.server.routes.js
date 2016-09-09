@@ -3,7 +3,10 @@ var controller  = require('../controllers/core.server.controllers');
 
 module.exports = function(app){
   app.get('/home', controller.home)
-    .get('/', controller.home);
+    .get('/', controller.home)
+    .get('/greet', controller.greet)
+    .get('/chat', controller.chat)
+    .get('/article', controller.article);
 
 /*
   // Define error page

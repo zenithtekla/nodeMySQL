@@ -1,4 +1,10 @@
 # ROADMAP
+
+#### le 7, septembre 2016
+- extends layout for module view (validate if no view engine conflicts)
+- validates if findOrCreate() works for query_text field in query_approvals app
+- path.resolve for module files that require core https://github.com/zenithtekla/TailsObs/blob/master/tailapp/modules/customers/server/controllers/customers.server.controller.js
+
 #### le 3, septembre 2016
 - investigating and exploiting the guts of mantisBT.
 - provided planning of database migration, ref: http://www.slideshare.net/matkeep/migrating-from-relational-databases-to-mongodb

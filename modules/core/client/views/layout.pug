@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8', name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+  body
+    #wrap
+      .container
+        h1 #{title} application
+        span Environment: #{env}
+        block header
+        block nav
+        .content
+          h2 Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
+          block content
+    block footer
+      footer
+        .container
+        p
+        | Made from Helsinki with love Copyright &copy; 2016 | Issues? Submit to
+        a(href="https://github.com/zenithtekla/NodeMySQL") GitHub
+        | .
