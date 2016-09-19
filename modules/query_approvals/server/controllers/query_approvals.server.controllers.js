@@ -8,10 +8,9 @@ var db      = require( process.cwd() + '/server').get('models'),
 // apps  = require( process.cwd() + '/modules/core/server/configs/core.server.configs').apps;
 
 exports.list = (req,res) => {
-  Query.findAll(/*{ limit: 3 }*/).then(function(records){
-    res.json(records);
-  }).catch(function(err){
-    res.json({message: 'error encountered', err: err});
+  Query.getList({
+    onRead: (records) => res.json(records),
+    onError:(err) => res.json({message: 'error encountered', err: err})
   });
 };
 

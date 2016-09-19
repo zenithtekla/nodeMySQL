@@ -23,6 +23,7 @@ module.exports = function(app){
     })
     .forEach(function(file) {
       var model = sequelize.import(path.join(__dirname, file));
+      require(path.resolve('./config/assets/crud'))(model);
       db[model.name] = model;
     });
 
