@@ -6,9 +6,15 @@ var utils     = require('../assets/utils'),
 
 /* SYNC */
 module.exports  = function(app) {
-  var models = app.get('models');
+  var db = app.get('models'),
+    rest = db.rest;
 
-  models.sequelize.sync({force: true, logging: console.log}).then(function (task) {
+  var userResource = rest.resource({
+    model: db.Todo,
+    endpoints: ['/mytodos', '/mytodos/:id']
+  });
+
+  db.sequelize.sync({force: true, logging: console.log}).then(function (task) {
     log.ok('database sync successful.');
     // buildTask.save();
     // console.log(arguments);

@@ -14,7 +14,7 @@ module.exports  = function(app){
   // var models = app.get('models');
 
   // load models
-  var models = require(process.cwd() + '/modules/core/server/models');
+  var models = require(process.cwd() + '/modules/core/server/models')(app);
   app.set('models', models);
 
   // use morgan logger

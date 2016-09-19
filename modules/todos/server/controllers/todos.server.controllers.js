@@ -6,7 +6,7 @@ var db    = require( process.cwd() + '/server').get('models'),
 exports.list = (req,res) => {
   // var findTask = Todo.findById(5);
   Todo.findAll(/*{ limit: 3 }*/).then(function(tasks){
-    res.json(tasks);
+    res.json({tasks: tasks});
     // res.render('list', { tasks: tasks});
   }).catch(function(err){
     res.json({message: 'error encountered', err: err});
@@ -23,23 +23,26 @@ exports.list = (req,res) => {
   // res.json(tasks);
   // res.render('list', {"tasks": tasks});
 };
-
+// create or update
 exports.create = (req,res) => {
   // res.status(303).send('thank you');
   Todo.findOne({ where: { task: req.body.task } }).then(function(todo){
-    if(todo.dataValues){
-      res.json({message: 'record exists ', record: todo.dataValues});
-    }
-    else {
+    if(!todo){
       Todo.create(req.body)
         .then(function (todo) {
           res.json({message: 'record created ', record: todo.dataValues});
         }).catch(function (err) {
-        res.json({message: 'error encountered' , err: err});
+        res.json({message: 'error2 encountered' , err: err});
       });
+    } else {
+      // res.json({message: 'record exists ', record: todo.dataValues});
+      Todo.update(req.body, {where: { task: req.body.task }})
+        .then(function () {
+          res.status(200).send({message:'modified an existing record @ param ' + req.body.task, record : req.body});
+        });
     }
   }).catch(function(err){
-    res.json({message: 'error encountered', err: err});
+    res.json({message: 'error1 encountered', err: err});
   });
 
   // res.status(200).json(req.body);
