@@ -11,6 +11,11 @@ module.exports = function(app){
     sequelize = new Sequelize(config.database, config.user, config.password, config),
     db        = {};
 
+  var rawQuery = function (query){
+    sequelize.query(query).spread(function(results, metadata){
+    });
+  };
+
     epilogue.initialize({
       app: app,
       sequelize: Sequelize
@@ -35,6 +40,7 @@ module.exports = function(app){
 
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
-  db.rest = epilogue;
+  db.rest      = epilogue;
+  db.rawQuery  = rawQuery;
   return db;
-}
+};
