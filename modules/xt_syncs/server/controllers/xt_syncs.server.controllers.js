@@ -26,7 +26,7 @@ exports.view2 = function (req,res) {
 exports.assembly = (req,res) => {
   // var findTask = Assembly.findById(5);
   Assembly.findAll().then(function(assemblys){
-    res.render('assembly_view', { assemblys: assemblys});
+    res.render('assembly_view', { title: "assemblyView", assemblys: assemblys});
   });
 };
 

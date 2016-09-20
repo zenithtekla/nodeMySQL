@@ -1,9 +1,9 @@
-doctype html
-html(lang='en')
-    head
-        meta(charset='UTF-8')
-        title Document
-    body
+extends ../../../core/client/views/layout
+
+block page
+    - var menu = 'xt_syncs'
+block content
+    div
         h3='Assembly Listing'
         - if (assemblys.length) {
         table

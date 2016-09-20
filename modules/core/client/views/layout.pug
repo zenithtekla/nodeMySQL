@@ -3,20 +3,25 @@ html(lang='en')
   head
     meta(charset='UTF-8', name="viewport", content="width=device-width, initial-scale=1.0")
     title= title
+    link(rel='stylesheet', type='text/css', href='/css/core.css')
   body
     #wrap
       .container
-        h1 #{title} application
+        h1 Manuke application
+        h2 #{title} application
         span Environment: #{env}
         block header
+        block page
         block nav
+          div
+            include includes/menu
         .content
           h2 Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
           block content
     block footer
       footer
-        .container
-        p
-        | Made from Helsinki with love Copyright &copy; 2016 | Issues? Submit to &nbsp;
-        a(href="https://github.com/zenithtekla/NodeMySQL") GitHub
-        | .
+        .container.floatright.right.italic-small.nopad.gray.inline-block
+          p
+          | Made from Helsinki with love Copyright &copy; 2016 | Issues? Submit to &nbsp;
+          a(href="https://github.com/zenithtekla/NodeMySQL") GitHub
+          | .

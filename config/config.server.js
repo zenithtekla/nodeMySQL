@@ -59,7 +59,8 @@ module.exports  = function(app){
   if (app.get('env') === 'test') require('./env/test')(app);
 
   // set the static files location /public/img will be /img for users
-  app.use(express.static(path.join(__dirname, 'public'))); // app.use(express.static('uploads')); http://expressjs.com/en/starter/static-files.html
+  app.use(express.static(path.resolve('public'))); // app.use(express.static('uploads')); http://expressjs.com/en/starter/static-files.html
+  // app.use(express.static(path.resolve('modules/client/core')));
 
 
   // render views
