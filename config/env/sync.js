@@ -9,10 +9,8 @@ module.exports  = function(app) {
   var db = app.get('models'),
     rest = db.rest;
 
-  var userResource = rest.resource({
-    model: db.Todo,
-    endpoints: ['/mytodos', '/mytodos/:id']
-  });
+  // create RESTful endpoints in rest.js
+  require('./rest')(db,rest);
 
   db.sequelize.sync({force: true, logging: console.log}).then(function (task) {
     log.ok('database sync successful.');
