@@ -10,7 +10,7 @@ module.exports  = function(app){
   var loaded = [], moduls = [], apps = {};
 
   _.each(config.modules, function(modul){
-    var module_path = path.join(process.cwd(), 'modules', modul),
+    var module_path = path.resolve('modules/', modul),
       module_sub  = utils.getDirectories(module_path);
 
     _.each(module_sub, function(sub){
@@ -21,7 +21,7 @@ module.exports  = function(app){
       if(sub.re("server")){
         if (module_subchild.indexOf("routes") > 0) {
           loaded.push(modul);
-          require(path.join(process.cwd(), 'modules/core/server/configs', 'core.server.configs'))(app, moduls, modul, module_path);
+          require(path.resolve('modules/core/server/configs/', 'core.server.configs'))(app, moduls, modul, module_path);
         }
       }
     });

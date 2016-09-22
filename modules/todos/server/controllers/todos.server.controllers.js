@@ -7,7 +7,7 @@ exports.list = (req,res) => {
   Todo.getList({
     cond: {limit: 2},
     onError:(err) => res.json(err),
-    onSuccess: (records) => res.json(records)
+    onSuccess: (records) => res.render('list', { tasks:records})
   });
 };
 // create or update

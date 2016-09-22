@@ -5,15 +5,16 @@
 </head>
 <body>
 <ol>
+  <!--not working {% extends ../../../core/client/views/layout.pug %}-->
   {% for task in tasks %}
-  <li>{{task.task}} {{ task.desc }} - taskId: {{task.id}} ---------- <a href='tasks/{{task.id}}'>view</a></li>
+  <li>{{task.task}} {{ task.desc }} - taskId: {{task.id}} -----{{task.due | date('Y-m-d H:i:s',-480) }}----- <a href='tasks/{{task.id}}'>view</a></li>
   {% endfor %}
 </ol>
 <div class="CreateTask">
   <form class="formCreateTask" role="form" action="/todos/tasks" method="POST">
     <div class="form-group">
       <label for="fieldTitle">Task</label><input type="text" id="fieldTitle" name="task">
-      <label for="fieldDescription">Description</label><input type="text" id="fieldDescription" name="description">
+      <label for="fieldDescription">Description</label><input type="text" id="fieldDescription" name="desc">
       <label for="fieldDue">Due</label><input type="date" id="fieldDue" name="due">
     </div>
     <div class="form-group">
