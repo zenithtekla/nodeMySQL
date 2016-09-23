@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "nodeMySQL-version": "1.0.0-beta",
   "private": false,
-  "author": "https://github.com/zenithtekla/nodeMySQL",
+  "author": "Phuc Tran",
   "license": "MIT",
   "repository": {
     "type": "git",

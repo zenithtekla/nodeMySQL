@@ -124,3 +124,5 @@ Icon?
 *.iml
 docs/*.html
 docs/*.json
+modules/yzt/
+public/img/
