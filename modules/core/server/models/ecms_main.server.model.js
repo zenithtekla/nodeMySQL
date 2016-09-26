@@ -14,11 +14,11 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true,
       charset: 'utf8',
       collate: 'utf8_unicode_ci',
-      /*classMethods: {
+      classMethods: {
         associate: function(models){
-          Schema.belongsTo(models.ECMS_Equipment, { as: 'Main', targetKey: 'asset_number'});
+          Schema.belongsTo(models.ECMS_Equipment, { as: 'Main', foreignKey: 'asset_number', targetKey: 'asset_number'});
         }
-      }*/
+      }
   });
 
   return Schema;

@@ -85,9 +85,13 @@ module.exports = function(model){
    * */
   var createRecord = function(o){
     model.create(o.newRecord).then(function(record){
-      o.onSuccess(record);
+      if (o.onSuccess)
+        return o.onSuccess(record);
+      else return null;
     }).catch(function (err) {
-      o.onError(err);
+      if (o.onError)
+        return o.onError(err);
+      else return null;
     })
   };
 
@@ -213,12 +217,12 @@ module.exports = function(model){
    *    onSuccess: {}
    * });
    * var bulkRecords = function (o) {
-   model.bulkCreate(o.records).then(function(){
-   o.onSuccess();
-   }).catch(function (err) {
-   o.onError(err);
-   });
-   };
+       model.bulkCreate(o.records).then(function(){
+          o.onSuccess();
+       }).catch(function (err) {
+          o.onError(err);
+       });
+    };
    *
    *
    * */

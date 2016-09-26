@@ -1,30 +1,30 @@
 .menu
   ul.nav.nav-pills
-    li(class=(menu === 'index') ? 'active' : '')
-      a(href='/') Home
-    li(class=(menu === 'article') ? 'active' : '')
-      a(href='/article') Article
-    li(class=(menu === 'chat') ? 'active' : '')
-      a(href='/chat') Chat
-    li(class=(menu === 'xt_syncs') ? 'active' : '')
-      a(href='/xt_syncs/assembly') XT_Syncs
-    li(class=(menu === 'calibrates') ? 'active' : '')
-      a(href='/calibrates') Calibrates
-    li(class=(menu === 'query_approvals') ? 'active' : '')
-      a(href='/query_approvals/pending_queries') Pending_Queries
-    li(class=(menu === 'todos') ? 'active' : '')
-      a(href='/todos/tasks') Tasks
-    li(class=(menu === 'services') ? 'active' : '')
-      a(href='/services/api/work_order/191915a') Services
+    li.nav-item
+      a.nav-link(href='/', class=(menu === 'index') ? 'active' : '') Home
+    li.nav-item
+      a.nav-link(href='/article', class=(menu === 'article') ? 'active' : '') Article
+    li.nav-item
+      a.nav-link(href='/chat', class=(menu === 'chat') ? 'active' : '') Chat
+    li.nav-item
+      a.nav-link(href='/xt_syncs/assembly', class=(menu === 'xt_syncs') ? 'active' : '') XT_Syncs
+    li.nav-item
+      a.nav-link(href='/calibrates', class=(menu === 'calibrates') ? 'active' : '') Calibrates
+    li.nav-item
+      a.nav-link(href='/query_approvals/pending_queries', class=(menu === 'query_approvals') ? 'active' : '') Pending_Queries
+    li.nav-item
+      a.nav-link(href='/todos/tasks', class=(menu === 'todos') ? 'active' : '') Tasks
+    li.nav-item
+      a.nav-link(href='/services/api/work_order/191915a', class=(menu === 'services') ? 'active' : '') Services
     if (admin)
-      li(class=(menu === 'post') ? 'active' : '')
-        a(href="/post") Post
-      li(class=(menu === 'admin') ? 'active' : '')
-        a(href="/admin") Admin
-      li
-        a(href="/logout") Log out
+      li.nav-item
+        a.nav-link(href="/post", class=(menu === 'post') ? 'active' : '') Post
+      li.nav-item
+        a.nav-link(href="/admin", class=(menu === 'admin') ? 'active' : '') Admin
+      li.nav-item
+        a.nav-link(href="/logout") Log out
     else
-      li(class=(menu === 'login')? 'active' : '')
-        a(href='/login') Log in
-      li
-        a(href='/auth/twitter') Sign in with Twitter
+      li.nav-item
+        a.nav-link(href='/login', class=(menu === 'login')? 'active' : '') Log in
+      li.nav-item
+        a.nav-link(href='/auth/twitter') Sign in with Twitter

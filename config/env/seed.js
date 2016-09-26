@@ -57,7 +57,7 @@ module.exports  = function(app) {
       newRecord: record,
       onError: (err)=>console.log(err),
       onSuccess: (record) => {
-        EquipmentRecord(record.dataValues);
+        return EquipmentRecord(record.dataValues);
       }
     });
   }

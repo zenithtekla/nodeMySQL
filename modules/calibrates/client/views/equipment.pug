@@ -1,23 +1,25 @@
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    title Document
-  body
+extends ../../../core/client/views/layout
+
+block page
+  - var menu = 'calibrates'
+block content
+  div
     h3='Listing from ECMS equipment table'
     - if (equipments.length) {
-    table
-      tr
-        th id
-        th asset_number
-        th location_id
-        th model
-        th status
-      each equipment in equipments
+    table.table.table-striped
+      thead.thead-inverse
         tr
-          td= equipment.id
-          td= equipment.asset_number
-          td= equipment.location_id
-          td= equipment.model
-          td= equipment.status
+          th id
+          th asset_number
+          th location_id
+          th model
+          th status
+      tbody
+        each equipment in equipments
+          tr
+            th(scope="row")= equipment.id
+            td= equipment.asset_number
+            td= equipment.location_id
+            td= equipment.model
+            td= equipment.status
     - }

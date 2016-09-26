@@ -1,12 +1,12 @@
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    title Document
-  body
+extends ../../../core/client/views/layout
+
+block page
+  - var menu = 'calibrates'
+block content
+  div
     h3='Listing from ECMS location table'
     - if (locations.length) {
-    table
+    table.table
       tr
         th id
         th desc

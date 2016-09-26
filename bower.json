@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "v4.0.0-alpha.4",
     "lodash": "^4.16.1",
     "angular-animate": "^1.5.8",
     "angular-cookies": "^1.5.8",

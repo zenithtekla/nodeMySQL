@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='UTF-8', name="viewport", content="width=device-width, initial-scale=1.0")
     title= title
     link(rel='stylesheet', type='text/css', href='/css/core.css')
-    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
   body
     #wrap
       .container
@@ -12,18 +12,19 @@ html(lang='en')
         h2 #{title} application
         span Environment: #{env}
         block header
-        block page
+        div.container-fluid
+          block page
         block nav
           div
             include includes/menu
         .content
-          h2 Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
+          span.alert-success Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
           block content
     block footer
       footer
         .container.floatright.right.italic-small.nopad.gray.inline-block
           p
-          | Made from Helsinki with love Copyright &copy; 2016 | Issues? Submit to &nbsp;
+          | Made from Helsinki with love Copyright &copy; ZeTekLA 2016 | Issues? Submit to &nbsp;
           a(href="https://github.com/zenithtekla/NodeMySQL") GitHub
           | .
     // bower:js
