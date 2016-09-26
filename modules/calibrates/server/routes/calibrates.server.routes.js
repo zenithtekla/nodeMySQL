@@ -66,6 +66,15 @@ module.exports = function(app){
     .get('/table_main', controller.main)
     .get('/table_location', controller.location);
 
+  /*app.route('/tasks').all(/!* taskPolicy.isAllowed *!/)
+    .get(controller.list)
+    .post(controller.create);
+
+  app.route('/tasks/:taskId')
+    .get(controller.read)
+    .put(controller.update)
+    .delete(controller.delete);*/
+
   // app.post('/upload', auth.isAuthenticated(), controller.upload);
 };
 

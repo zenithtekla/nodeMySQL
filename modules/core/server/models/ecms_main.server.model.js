@@ -3,11 +3,6 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Schema = sequelize.define('ECMS_Main', {
-      asset_number: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-        unique: true
-      },
       last_cal: DataTypes.DATE(),
       schedule: DataTypes.INTEGER(20),
       next_cal: DataTypes.DATE(),
@@ -19,11 +14,11 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true,
       charset: 'utf8',
       collate: 'utf8_unicode_ci',
-      classMethods: {
+      /*classMethods: {
         associate: function(models){
-          Schema.hasOne(models.ECMS_Equipment, { as: 'Equipment'});
+          Schema.belongsTo(models.ECMS_Equipment, { as: 'Main', targetKey: 'asset_number'});
         }
-      }
+      }*/
   });
 
   return Schema;

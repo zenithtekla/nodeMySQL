@@ -1,6 +1,7 @@
 "use strict";
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    Promise = require('bluebird');
 // pending implementation of var bluebird = require('bluebird); Promisify these CRUD utility methods
 
 module.exports = function(model){
@@ -10,14 +11,15 @@ module.exports = function(model){
    * Model.findOrCreateRecord({
    *    cond: { where: { query_text: req.body.query_text }, defaults: req.body },
    *    newRecord: {},
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *  // defaults is optional
    *
    * */
   var findOrCreateRecord = function(o){
+    o.cond = o.cond || {};
     model.findOrCreate(o.cond).then(function(record, created){
       /*if(record[0].dataValues) res.json({ record: record[0].dataValues });
       else res.sendStatus(200);*/
@@ -32,9 +34,9 @@ module.exports = function(model){
   * Model.updateOrCreate({
   *    cond: {},
   *    newRecord: {},
+  *    onError: {},
   *    onCreate: {},
-  *    onUpdate: {},
-  *    onError: {}
+  *    onUpdate: {}
   * });
   *
   *
@@ -75,8 +77,8 @@ module.exports = function(model){
    * USAGE:
    * Model.createRecord({
    *    newRecord: {},
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
@@ -92,11 +94,12 @@ module.exports = function(model){
 
   /*
    * USAGE:
+   * aka. Model.getRecords
    *
    * Model.getList({
-   *    limit: 3,
-   *    onRead: {},
-   *    onError: {}
+   *    cond: {limit: 3}, // cond: { where: {task: req.body.task}, limit: 3}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
@@ -106,6 +109,7 @@ module.exports = function(model){
     _.forOwn(o, function(v, k){
       if (v) ob.k = o.k;
     });*/
+    o.cond = o.cond || {};
     model.findAll(o.cond).then(function(records){
        o.onSuccess(records);
     }).catch(function (err) {
@@ -118,8 +122,8 @@ module.exports = function(model){
    *
    * Model.getRecordById({
    *    id: req.params.id,
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
@@ -137,13 +141,14 @@ module.exports = function(model){
    *
    * Model.getRecord({
    *    cond: {}, // cond: {where: {}}, OR cond: {where: {id: req.params.id}}
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
    * */
   var getRecord = function (o) {
+    o.cond = o.cond || {};
     model.findOne(o.cond).then(function (record) {
       o.onSuccess(record);
     }).catch(function (err) {
@@ -160,13 +165,14 @@ module.exports = function(model){
    *      fields: ['status'],
    *      where: {},
    *    },
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
    * */
   var updateRecord = function (o) {
+    o.cond = o.cond || {};
     model.update(o.newRecord, o.cond).then(function () {
       o.onSuccess();
     }).catch(function (err) {
@@ -182,13 +188,14 @@ module.exports = function(model){
    *      where: {},
    *      $not: {}
    *    },
-   *    onSuccess: {},
-   *    onError: {}
+   *    onError: {},
+   *    onSuccess: {}
    * });
    *
    *
    * */
   var deleteRecord = function (o) {
+    o.cond = o.cond || {};
     model.destroy(o.cond).then(function () {
       o.onSuccess();
     }).catch(function (err) {
@@ -196,12 +203,45 @@ module.exports = function(model){
     })
   };
 
+  /*
+   * USAGE:
+   *
+   * Model.bulkRecords({
+   *    records: [{
+   *    }, {}],
+   *    onError: {},
+   *    onSuccess: {}
+   * });
+   * var bulkRecords = function (o) {
+   model.bulkCreate(o.records).then(function(){
+   o.onSuccess();
+   }).catch(function (err) {
+   o.onError(err);
+   });
+   };
+   *
+   *
+   * */
+  /*var bulkRecords = function (o) {
+    model.bulkCreate(o.records).then(() => Promise.resolve(o.onSuccess())
+    ).catch(next);
+  };*/
+  var bulkRecords = function (o) {
+    model.bulkCreate(o.records).then(function() {
+      o.onSuccess();
+    }).catch(function(err) {
+      o.onError(err);
+    });
+  };
+
   model.findOrCreateRecord    = findOrCreateRecord;
   model.updateOrCreate        = updateOrCreate;
   model.createRecord          = createRecord;
   model.getList               = getList;
+  model.getRecords            = getList;
   model.getRecordById         = getRecordById;
   model.getRecord             = getRecord;
   model.updateRecord          = updateRecord;
   model.deleteRecord          = deleteRecord;
+  model.bulkRecords           = bulkRecords;
 };

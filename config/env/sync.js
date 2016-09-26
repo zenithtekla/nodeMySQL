@@ -12,8 +12,8 @@ module.exports  = function(app) {
   // create RESTful endpoints in rest.js
   require('./rest')(db,rest);
 
-  db.sequelize.sync({force: true, logging: console.log}).then(function (task) {
-    log.ok('database sync successful.');
+  db.sequelize.sync({ force: true,   logging: console.log}).then(function (task) {
+
     // buildTask.save();
     // console.log(arguments);
     /*          var server = app.listen(app.get('port'), function() {
@@ -28,6 +28,10 @@ module.exports  = function(app) {
      buildTask.then(function (task) {
      task.save();
      });*/
+
+    // seed for the Database
+    require('./seed')(app);
+    log.ok('database sync successful.');
   });
 
  /* mongoose.Promise = global.Promise;

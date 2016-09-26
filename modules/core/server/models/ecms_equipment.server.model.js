@@ -6,16 +6,16 @@ module.exports = function(sequelize, DataTypes) {
     model: {
       type: DataTypes.STRING(20) ,
       allowNull: false
-    } ,
+    },
     asset_number: {
-      type: DataTypes.STRING(20) ,
-      allowNull: false ,
+      type: DataTypes.STRING(20),
+      allowNull: false,
       unique: true
-    } ,
-    status: {
+    }
+/*    status: {
       type: DataTypes.INTEGER(2).UNSIGNED ,
       defaultValue: 1
-    }
+    }*/
   } ,
   {
     timestamps: false ,
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
         // by default, will reference to targetKey of primary id in the Location table
         // belongsTo - foreignKey sits on the source table: which is this Schema
         Schema.belongsTo(models.ECMS_Location, { as: 'Location', foreignKey: 'location_id', targetKey: 'id' } );
-        Schema.belongsTo(models.ECMS_Main, { as: 'Equipment', foreignKey: 'asset_number', targetKey: 'asset_number'});
+        // Schema.hasOne(models.ECMS_Main, { as: 'Equipment', foreignKey: 'asset_number'});
       }
     }
   });
