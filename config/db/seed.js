@@ -5,7 +5,9 @@ module.exports  = function(app) {
   var db = app.get('models') ,
     _ = require('lodash') ,
     Promise = require('bluebird') ,
-    utils = require('../assets/utils');
+    utils = require('../assets/utils'),
+    path = require('path'),
+    util_method = require(path.resolve('modules/calibrates/server/controllers/calibrates.server.utils'))(db, 'development');
 
   var ECMS_Location   = db.ECMS_Location,
     ECMS_Attribute   = db.ECMS_Attribute,
@@ -44,9 +46,36 @@ module.exports  = function(app) {
    });
 
    */
+   var records = [
+     {
+       body: {
+         desc:'labroom',
+         model:"brts31",
+         asset_number:1
+       }
+     },
+     {
+       body: {
+         desc: 'production',
+         model:"brts32",
+         asset_number:2
+       }
+     },
+     {
+       body: {
+         desc: 'production',
+         model:"brts33",
+         asset_number:3
+       }
+     }
+   ];
+
+  _.forEach(records, (record) => {
+    util_method.createLocation(record);
+  });
 
 
-  create_locations([{ desc: "labroom" }, { desc: "production" }]);
+  /*create_locations([{ desc: "labroom" }, { desc: "production" }]);
 
   function create_locations(records){
     _.forEach(records, (record) => create_location(record));
@@ -57,7 +86,7 @@ module.exports  = function(app) {
       newRecord: record,
       onError: (err)=>console.log(err),
       onSuccess: (record) => {
-        return EquipmentRecord(record.dataValues);
+        EquipmentRecord(record.dataValues);
       }
     });
   }
@@ -104,7 +133,7 @@ module.exports  = function(app) {
       onSuccess: (record) =>console.log(record.dataValues)
     });
   }
-
+*/
   /*db.ECMS_Attribute.bulkCreate([
    {
      asset_number: '1',

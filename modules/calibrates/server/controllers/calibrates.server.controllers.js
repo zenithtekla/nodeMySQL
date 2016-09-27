@@ -1,9 +1,12 @@
 // load the models
 // var models = require( process.cwd() + '/modules/core/server/models'),
 //     ECMS_Equipment  = models.ECMS_Equipment;
-var db = require( process.cwd() + '/server').get('models'),
+var db              = require( process.cwd() + '/server').get('models'),
+    env             = process.env.NODE_ENV || "development",
+    utils           = require('./calibrates.server.utils')(db, env),
+    chalk           = require('chalk'),
     ECMS_Equipment  = db.ECMS_Equipment,
-    ECMS_Attribute = db.ECMS_Attribute,
+    ECMS_Attribute  = db.ECMS_Attribute,
     ECMS_Location   = db.ECMS_Location;
     // ;
 
@@ -36,8 +39,6 @@ exports.getEquipment = function(req,res) {
     }
   })*/
   ECMS_Equipment.findAll({
-    // where: { asset_number: 1},
-    // include: [ECMS_Location]
     attributes: ["model", "asset_number", "location_id"],
     include: [
       { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
@@ -48,14 +49,69 @@ exports.getEquipment = function(req,res) {
   })
 };
 
-exports.createEquipment = function (req, res) {
-  ECMS_Equipment.create({
-    asset_number: 'asset06',
-    location_id: 'coordinates005-008',
-    model: 'someModel1'
-  }).then(function(new_equipment){
-    res.json(new_equipment.assetNumber);
-  });
+exports.getEquipmentBy = function(req,res) {
+  ECMS_Equipment.findAll({
+    where: req.params,
+    attributes: ["model", "asset_number", "location_id"],
+    include: [
+      { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
+      { model: ECMS_Location, attributes: ["desc"]}
+    ]
+  }).then(function(result){
+    res.json(result);
+  })
+};
+
+exports.createEquipment = function (req, res, next) {
+  // console.log(utils);
+  utils.createLocation(req, res, next);
+  /*create_location({desc:req.body.desc});
+
+  function create_location(record){
+    ECMS_Location.createRecord({
+      newRecord: record,
+      onError: (err)=>console.log(err),
+      onSuccess: (record) => {
+        return EquipmentRecord(record.dataValues);
+      }
+    });
+  }
+
+  function EquipmentRecord(record){
+    var equip = {
+      location_id: record.id,
+      model: 'brts32',
+      asset_number: 3
+    };
+    console.log(equip);
+    create_equipment(equip);
+  }
+
+  function create_equipment(record){
+    ECMS_Equipment.createRecord({
+      newRecord: record,
+      onError: (err)=>console.log(err),
+      onSuccess:(record)=>{
+        console.log(record.dataValues);
+        create_ECMS_attrs_entry(record.dataValues);
+      }
+    });
+  }
+
+  function create_ECMS_attrs_entry(record){
+    ECMS_Attribute.createRecord({
+      newRecord: {
+        asset_number:record.asset_number,
+        last_cal: new Date(req.body.last_cal),
+        next_cal: new Date(req.body.next_cal)
+      },
+      onError: (err)=>console.log(err),
+      onSuccess: (record) =>res.json(record.dataValues)
+    });
+  }*/
+};
+
+exports.update = function(req,res,next){
 
 };
 
@@ -68,12 +124,6 @@ exports.calibrate = function (req, res) {
   // });
 };
 
-exports.record = function (req, res) {
-  Record.findAll().then(function(records){
-    res.render('record', { records: records});
-  });
-};
-
 exports.postCalibrate = function (req, res) {
 
 };
@@ -84,10 +134,6 @@ exports.postEquipment = function (req, res) {
     .then(function (newEquipment) {
       console.log(newEquipment.dataValues);
     })
-};
-
-exports.postRecord = function (req, res) {
-
 };
 
 /* cloned from exports.userByID */

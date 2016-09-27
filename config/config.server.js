@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * Module dependencies.
+ */
 
 var express       = require('express'),
   path            = require('path'),

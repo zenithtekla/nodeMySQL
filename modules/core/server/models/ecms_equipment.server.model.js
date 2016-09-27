@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     asset_number: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      unique: true
+      unique: true,
+      primaryKey:true
     }
 /*    status: {
       type: DataTypes.INTEGER(2).UNSIGNED ,
@@ -37,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  // Schema.removeAttribute('id');
+
+  Schema.removeAttribute('id');
   return Schema;
 };

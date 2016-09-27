@@ -86,12 +86,12 @@ module.exports = function(model){
   var createRecord = function(o){
     model.create(o.newRecord).then(function(record){
       if (o.onSuccess)
-        return o.onSuccess(record);
-      else return null;
+        o.onSuccess(record);
+      return null;
     }).catch(function (err) {
       if (o.onError)
-        return o.onError(err);
-      else return null;
+        o.onError(err);
+      return null;
     })
   };
 
