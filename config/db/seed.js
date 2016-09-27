@@ -8,12 +8,12 @@ module.exports  = function(app) {
     utils = require('../assets/utils');
 
   var ECMS_Location   = db.ECMS_Location,
-    ECMS_Main       = db.ECMS_Main,
-    ECMS_Equipment  = db.ECMS_Equipment;
+    ECMS_Attribute   = db.ECMS_Attribute,
+    ECMS_Equipment    = db.ECMS_Equipment;
 
   /*
 
-   ECMS_Main.bulkCreate({
+   ECMS_Attribute.bulkCreate({
      records:[{
        asset_number: '1',
        last_cal:'2012/08/22',
@@ -88,13 +88,13 @@ module.exports  = function(app) {
       onError: (err)=>console.log(err),
       onSuccess:(record)=>{
         console.log(record.dataValues);
-        create_ECMS_main_entry(record.dataValues);
+        create_ECMS_attrs_entry(record.dataValues);
       }
     });
   }
 
-  function create_ECMS_main_entry(record){
-    ECMS_Main.createRecord({
+  function create_ECMS_attrs_entry(record){
+    ECMS_Attribute.createRecord({
       newRecord: {
         asset_number:record.asset_number,
         last_cal: new Date('2012/08/22'),
@@ -105,7 +105,7 @@ module.exports  = function(app) {
     });
   }
 
-  /*db.ECMS_Main.bulkCreate([
+  /*db.ECMS_Attribute.bulkCreate([
    {
      asset_number: '1',
      last_cal: new Date('2012/08/22'),

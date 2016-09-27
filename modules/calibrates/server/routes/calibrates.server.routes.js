@@ -60,8 +60,8 @@ module.exports = function(app){
 
   var module_name = app.get('module_name');
   var controller  = require('../controllers/' + module_name + '.server.controllers');
-  
-  app.get('/equipment', controller.createEquipment)
+
+  app.get('/show_equipment', controller.getEquipment)
     .get('/table_equipment', controller.equipment)
     .get('/table_main', controller.main)
     .get('/table_location', controller.location);

@@ -30,7 +30,7 @@ module.exports  = function(app) {
      });*/
 
     // seed for the Database
-    require('./seed')(app);
+    require('./../db/seed')(app);
     log.ok('database sync successful.');
   });
 

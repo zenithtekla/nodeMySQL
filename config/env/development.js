@@ -37,6 +37,6 @@ module.exports  = function(app){
 
   ('NODE_ENV = development').chalk('magenta');
 
-  require('./task')(app);
+  require('./../db/task')(app);
   require('./sync')(app);
 };

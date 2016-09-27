@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Schema = sequelize.define('ECMS_Main', {
+  var Schema = sequelize.define('ECMS_Attribute', {
       last_cal: DataTypes.DATE(),
       schedule: DataTypes.INTEGER(20),
       next_cal: DataTypes.DATE(),
@@ -10,13 +10,13 @@ module.exports = function(sequelize, DataTypes) {
   },
   {
       timestamps: false,
-      tableName: 'ECMS_main_table',
+      tableName: 'ECMS_attrs_table',
       freezeTableName: true,
       charset: 'utf8',
       collate: 'utf8_unicode_ci',
       classMethods: {
         associate: function(models){
-          Schema.belongsTo(models.ECMS_Equipment, { as: 'Main', foreignKey: 'asset_number', targetKey: 'asset_number'});
+          Schema.belongsTo(models.ECMS_Equipment, { foreignKey: 'asset_number', targetKey: 'asset_number'});
         }
       }
   });

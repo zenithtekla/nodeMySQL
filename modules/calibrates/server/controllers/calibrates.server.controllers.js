@@ -3,7 +3,7 @@
 //     ECMS_Equipment  = models.ECMS_Equipment;
 var db = require( process.cwd() + '/server').get('models'),
     ECMS_Equipment  = db.ECMS_Equipment,
-    ECMS_Main       = db.ECMS_Main,
+    ECMS_Attribute = db.ECMS_Attribute,
     ECMS_Location   = db.ECMS_Location;
     // ;
 
@@ -14,9 +14,38 @@ exports.equipment = (req, res) => {
   });
 };
 exports.main = function (req, res) {
-  ECMS_Main.findAll().then(function(mains){
+  ECMS_Attribute.findAll().then(function(mains){
     res.render('main', { mains: mains});
   });
+};
+exports.location = function (req, res) {
+  ECMS_Location.findAll().then(function(locations){
+    res.render('location', { locations: locations});
+  });
+};
+
+exports.getEquipment = function(req,res) {
+  /*ECMS_Equipment.getList({
+    cond: { include: [
+      { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
+      { model: ECMS_Location, attributes: ["desc"]}
+    ]},
+    onError: (err) => res.json({message: 'Unable to retrieve list of equipments', error:err}),
+    onSuccess:(records) => {
+      console.log(records);
+    }
+  })*/
+  ECMS_Equipment.findAll({
+    // where: { asset_number: 1},
+    // include: [ECMS_Location]
+    attributes: ["model", "asset_number", "location_id"],
+    include: [
+      { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
+      { model: ECMS_Location, attributes: ["desc"]}
+    ]
+  }).then(function(result){
+    res.json(result);
+  })
 };
 
 exports.createEquipment = function (req, res) {
@@ -28,12 +57,6 @@ exports.createEquipment = function (req, res) {
     res.json(new_equipment.assetNumber);
   });
 
-};
-
-exports.location = function (req, res) {
-  ECMS_Location.findAll().then(function(locations){
-    res.render('location', { locations: locations});
-  });
 };
 
 /* logic goes here */

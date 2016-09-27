@@ -18,8 +18,11 @@ html(lang='en')
           div
             include includes/menu
         .content
-          span.alert-success Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
+          br
           block content
+          br
+          br
+          span.alert-success Tervetuloa, Välkommen, Velkommen, Bienvenue, Welcome, Willkommen !
     block footer
       footer
         .container.floatright.right.italic-small.nopad.gray.inline-block
@@ -30,6 +33,7 @@ html(lang='en')
     // bower:js
     script(src='/lib/jquery/dist/jquery.min.js')
     script(src='/lib/angular/angular.min.js')
+    script(src='/lib/tether/dist/js/tether.min.js')
     script(src='/lib/bootstrap/dist/js/bootstrap.min.js')
     script(src='/lib/angular-animate/angular-animate.min.js')
     script(src='/lib/angular-cookies/angular-cookies.min.js')

@@ -8,8 +8,15 @@
       a.nav-link(href='/chat', class=(menu === 'chat') ? 'active' : '') Chat
     li.nav-item
       a.nav-link(href='/xt_syncs/assembly', class=(menu === 'xt_syncs') ? 'active' : '') XT_Syncs
-    li.nav-item
-      a.nav-link(href='/calibrates', class=(menu === 'calibrates') ? 'active' : '') Calibrates
+    li.nav-item.dropdown
+      a.nav-link.dropdown-toggle(href='#', data-toggle="dropdown", role="button", class=(menu === 'calibrates') ? 'active' : '') Calibrates
+      div.dropdown-menu
+        a.dropdown-item(href='#') List
+        a.dropdown-item(href='#') Create
+        div.dropdown-divider
+        a.dropdown-item(href='/calibrates/table_main') View Main table
+        a.dropdown-item(href='/calibrates/table_equipment') View Equipment table
+        a.dropdown-item(href='/calibrates/table_location') View Location table
     li.nav-item
       a.nav-link(href='/query_approvals/pending_queries', class=(menu === 'query_approvals') ? 'active' : '') Pending_Queries
     li.nav-item

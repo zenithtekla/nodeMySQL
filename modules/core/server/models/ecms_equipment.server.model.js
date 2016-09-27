@@ -32,8 +32,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models){
         // by default, will reference to targetKey of primary id in the Location table
         // belongsTo - foreignKey sits on the source table: which is this Schema
-        Schema.belongsTo(models.ECMS_Location, { as: 'Location', foreignKey: 'location_id', targetKey: 'id' } );
-        // Schema.hasOne(models.ECMS_Main, { as: 'Equipment', foreignKey: 'asset_number'});
+        Schema.belongsTo(models.ECMS_Location, { foreignKey: 'location_id', targetKey: 'id' } );
+        Schema.hasMany(models.ECMS_Attribute, { foreignKey: 'asset_number'});
       }
     }
   });
