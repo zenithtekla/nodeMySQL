@@ -5,29 +5,30 @@ var db              = require( process.cwd() + '/server').get('models'),
     env             = process.env.NODE_ENV || "development",
     utils           = require('./calibrates.server.utils')(db, env),
     chalk           = require('chalk'),
+    moment = require('moment'),
     ECMS_Equipment  = db.ECMS_Equipment,
     ECMS_Attribute  = db.ECMS_Attribute,
     ECMS_Location   = db.ECMS_Location;
     // ;
 
 /* initial dumps from tables */
-exports.equipment = (req, res) => {
+exports.equipment = (req, res, next) => {
   ECMS_Equipment.findAll().then(function(equipments){
     res.render('equipment', { equipments: equipments});
   });
 };
-exports.main = function (req, res) {
+exports.main = function (req, res, next) {
   ECMS_Attribute.findAll().then(function(mains){
     res.render('main', { mains: mains});
   });
 };
-exports.location = function (req, res) {
+exports.location = function (req, res, next) {
   ECMS_Location.findAll().then(function(locations){
     res.render('location', { locations: locations});
   });
 };
 
-exports.getEquipment = function(req,res) {
+exports.getEquipment = function(req,res, next) {
   /*ECMS_Equipment.getList({
     cond: { include: [
       { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
@@ -44,12 +45,13 @@ exports.getEquipment = function(req,res) {
       { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
       { model: ECMS_Location, attributes: ["desc"]}
     ]
-  }).then(function(result){
-    res.json(result);
+  }).then(function(records){
+    // res.json(records);
+    res.render('calibrate', {env: env, moment: moment, calibrates: records});
   })
 };
 
-exports.getEquipmentBy = function(req,res) {
+exports.getEquipmentBy = function(req,res, next) {
   ECMS_Equipment.findAll({
     where: req.params,
     attributes: ["model", "asset_number", "location_id"],
@@ -116,7 +118,7 @@ exports.update = function(req,res,next){
 };
 
 /* logic goes here */
-exports.calibrate = function (req, res) {
+exports.calibrate = function (req, res, next) {
   // replace calibrates with logic, promise return.
   calibrates = {};
   // myPromise.doSomething().then(function(records){
@@ -124,10 +126,10 @@ exports.calibrate = function (req, res) {
   // });
 };
 
-exports.postCalibrate = function (req, res) {
+exports.postCalibrate = function (req, res, next) {
 
 };
-exports.postEquipment = function (req, res) {
+exports.postEquipment = function (req, res, next) {
   Equipment.create(req.body,{
     fields:['model', 'asset_number', 'location_id']
   })

@@ -21,6 +21,6 @@ module.exports = function(sequelize, DataTypes) {
       }
   });
 
-  // Schema.removeAttribute('id');
+  Schema.removeAttribute('id');
   return Schema;
 };

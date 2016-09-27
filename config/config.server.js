@@ -31,6 +31,9 @@ module.exports  = function(app){
   // use cors
   app.use(cors());
 
+  // use momentjs
+  app.locals.moment = require('moment');
+
   app.set('json spaces', 4);
 
   // resolve 304 status code

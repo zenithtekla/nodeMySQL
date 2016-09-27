@@ -5,21 +5,26 @@ block page
 block content
   div
     h3='Calibrate Listing'
+    br
     - if (calibrates.length) {
-    table.table
-      tr
-        th id
-        th customer_id
-        th Assembly_number
-        th revision
-        th unique_key
-      each calibrate in calibrates
+    table.table.table-striped
+      thead.thead-inverse
         tr
-          td= calibrate.id
-          td= calibrate.customer_id
-          td= calibrate.number
-          td= calibrate.revision
-          - if (calibrate.unique_key) {
-          td= calibrate.unique_key
-          - }
-    - }
+          th Asset Number
+          th Model
+          th Location
+          th Last Cal
+          th Next Cal
+          th File
+      tbody
+        each calibrate in calibrates
+          tr
+            td= calibrate.asset_number
+            td= calibrate.model
+            td= calibrate.ECMS_Location.desc
+            td #{moment(calibrate.ECMS_Attributes[0].last_cal).format('MM/DD/YYYY')}
+            td #{moment(calibrate.ECMS_Attributes[0].next_cal).format('MM/DD/YYYY')}
+            - if (calibrate.ECMS_Attributes[0].file) {
+            td= calibrate.ECMS_Attributes[0].file
+            - }
+      - }
