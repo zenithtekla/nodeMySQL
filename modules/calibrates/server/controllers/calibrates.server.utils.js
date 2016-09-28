@@ -12,9 +12,40 @@ module.exports  = function(db, env) {
   var utils = {
     createLocation: function(req, res, next){
       create_location(req, res, next);
+    },
+    findMethod: function (req, res, next, callback) {
+      ECMS_Equipment.findAll({
+        where: req.params,
+        attributes: ["model", "asset_number", "location_id"],
+        include: [
+          { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
+          { model: ECMS_Location, attributes: ["desc"]}
+        ]
+      }).then(function(result){
+        callback(result);
+      }).catch(function (err) {
+        res.json({error: err});
+      });
     }
   };
 
+
+  /* RELATIONSHIP:
+      1:1 with source being the ECMS_Equipment and target being the ECMS_Location
+                                ECMS_Equipment is a child to ECMS_Location parent.
+      1:m with source being the ECMS_Atrribute and target being the ECMS_Equipment.
+                                ECMS_Attribute are children to ECMS_Equipment parent.
+
+      ECMS_Location --(1:1)--> ECMS_Equipment --(1:m)--> EMCS_Attribute
+
+      Creation of an entry in ECMS_equipment_table requires foreign key location_id (an entry in ECMS_Location_table must pre-exist)
+      Creation of an entry in ECMS_attribute_table requires foreign key asset_number (an entry in ECMS_Equipment_table must pre-exist)
+
+      => It makes sense to have a location created first.
+
+      Functional programming (NO to callback hell):
+        the createEquipment method: create_location => create_equipment => create_ECMS_attrs_entry
+   */
   function create_location(req, res, next){
     var input  = { desc: req.body.desc };
     ECMS_Location.createRecord({
@@ -28,19 +59,16 @@ module.exports  = function(db, env) {
 
   function EquipmentRecord(req, res, record){
     var equip = {
-      location_id: record.id
+      location_id: record.id,
+      model: req.model,
+      asset_number: req.asset_number
     };
 
     switch (env) {
     	case 'seed':
         EquipmentSeed(equip, record.desc);
     		break;
-      case 'production':
-      case 'development':
-      case 'test':
-        equip.model = req.model;
-        equip.asset_number = req.asset_number;
-        break;
+
     	default:
     		break;
     }
@@ -65,7 +93,9 @@ module.exports  = function(db, env) {
       newRecord: {
         asset_number: record.asset_number,
         last_cal: new Date(req.last_cal || '2012/08/22'),
-        next_cal: new Date(req.next_cal || '2013/08/22')
+        schedule: req.schedule || 3,
+        next_cal: new Date(req.next_cal || '2013/08/22'),
+        file: req.file || 'file_placeholder'
       },
       onError: (err)=>console.log(err),
       onSuccess: (record) =>{
@@ -79,12 +109,12 @@ module.exports  = function(db, env) {
   function EquipmentSeed(equip, desc) {
     switch (desc) {
       case 'labroom':
-        equip.model = 'brts' + Math.floor(Math.random()*2999).toString();
-        equip.asset_number= Math.floor(Math.random()*2999);
+        equip.model = equip.model || 'brts' + Math.floor(Math.random()*2999).toString();
+        equip.asset_number= equip.asset_number || Math.floor(Math.random()*2999);
         break;
       case 'production':
-        equip.model = 'brts'+ Math.floor(Math.random()*2999).toString();
-        equip.asset_number= Math.floor(Math.random()*2999);
+        equip.model = equip.model || 'brts'+ Math.floor(Math.random()*2999).toString();
+        equip.asset_number= equip.asset_number || Math.floor(Math.random()*2999);
         break;
       default:
         break;

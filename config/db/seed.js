@@ -46,7 +46,7 @@ module.exports  = function(app) {
    });
 
    */
-   /*var records = [
+   var records = [
      {
        body: {
          desc:'labroom',
@@ -72,7 +72,16 @@ module.exports  = function(app) {
 
   _.forEach(records, (record) => {
     util_method.createLocation(record);
-  });*/
+  });
+
+  var record = {
+    body: {
+      desc:'labroom',
+      model:"brts32",
+      asset_number:5
+    }
+  };
+  util_method.createLocation(record);
 
   for (var i = 1;i<10; i++){
     var req= {
@@ -85,12 +94,4 @@ module.exports  = function(app) {
     util_method.createLocation(req, res);
   }
 
-/*  var req= {
-    body: {
-      desc:'labroom',
-      model:"brts31",
-      asset_number:1
-    }
-  };
-  util_method.createLocation(req);*/
 };

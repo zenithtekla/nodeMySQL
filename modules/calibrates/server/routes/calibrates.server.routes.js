@@ -12,17 +12,38 @@ module.exports = function(app){
     .get('/table_location', controller.location);
   app.route('/equipment')
     .get( controller.getEquipment)
-    .post( controller.createEquipment);
+    // create the entire new model of equipments.
+    .post( controller.createModel);
   app.route('/equipment/:model/:asset_number')
-    .get(controller.getEquipmentBy);
-    // .put(controller.update);
+    .get(controller.getEquipmentBy)
+    
+    // UPDATE: update an Equipment by its model & specific asset_number
+    // allow update of the following fiels: file, schedule for next_cal, location (if necessary, 
+    // for example from stockroom, production to shipping dept SHOULD the requirement-scheduled date be met)
+    .put(controller.updateEquipment)
+    
+    // DELETE an Equipment based on model & asset_number, must delete its location
+    // .delete(controller.deleteEquipment)
+    ;
 
   app.route('/equipment/:model')
-    .get(controller.getEquipmentBy);
-  app.route('/equipment/:asset_number')
+    .get(controller.getEquipmentBy)
+  
+  // CREATE an Equipment based on model, literally adds another asset_number to that existing model 
+  // and also add file, location, last_cal, schedule, ...)
+  
+  .post(controller.createEquipment)
+  
+  // UPDATE model name, only to update model field literally
+  // .put(controller.updateModel)
+  
+  // DELETE the entire model
+  // .delete(controller.deleteModel)
+  ;
+  app.route('/asset_number/:asset_number')
     .get(controller.getEquipmentBy);
 
-  app.route('/equipment/:location_id')
+  app.route('/location/:location_id')
     .get(controller.getEquipmentBy);
 
   /*app.route('/tasks').all(/!* taskPolicy.isAllowed *!/)

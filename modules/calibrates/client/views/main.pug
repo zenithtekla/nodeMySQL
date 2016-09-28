@@ -19,9 +19,9 @@ block content
           td= main.id
           td= main.asset_number
           td= main.file
-          td= main.last_cal
+          td #{main.last_cal.toDateString()}
           - if (main.next_cal) {
-          td= main.next_cal
+          td #{main.next_cal.toDateString()}
           - }
           td= main.schedule
     - }

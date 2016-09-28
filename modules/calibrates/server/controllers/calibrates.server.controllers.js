@@ -28,6 +28,10 @@ exports.location = function (req, res, next) {
   });
 };
 
+/*
+  Business logic
+ */
+
 exports.getEquipment = function(req,res, next) {
   /*ECMS_Equipment.getList({
     cond: { include: [
@@ -52,19 +56,12 @@ exports.getEquipment = function(req,res, next) {
 };
 
 exports.getEquipmentBy = function(req,res, next) {
-  ECMS_Equipment.findAll({
-    where: req.params,
-    attributes: ["model", "asset_number", "location_id"],
-    include: [
-      { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
-      { model: ECMS_Location, attributes: ["desc"]}
-    ]
-  }).then(function(result){
+  utils.findMethod(req, res, next, function(result){
     res.json(result);
-  })
+  });
 };
 
-exports.createEquipment = function (req, res, next) {
+exports.createModel = function (req, res, next) {
   // console.log(utils);
   utils.createLocation(req, res, next);
   /*create_location({desc:req.body.desc});
@@ -113,22 +110,56 @@ exports.createEquipment = function (req, res, next) {
   }*/
 };
 
-exports.update = function(req,res,next){
+exports.createEquipment = function(req,res,next){
+  // ECMS_Equipment.findOne model:req.params.model
+  utils.findMethod(req, res, next, callback);
 
+  function callback(result){
+     req.body.model = result.model;
+     // SHOULD the location remain unchanged and unchangeable, give it req.body.desc = result.desc;
+
+     utils.createLocation(req, res, next);
+  }
+  // perform creation on Promise
 };
 
-/* logic goes here */
+exports.updateEquipment = function(req,res,next){
+  // ECMS_Equipment.findOne where: req.params (model:req.params.model, asset_number:req.params.asset_number)
+  // perform update on Promise
+  utils.findMethod(req, res, next, callback);
+  function callback(result){
+    req.body.model = result.model;
+    req.body.asset_number = result.asset_number;
+    // SHOULD the location remain unchanged and unchangeable, give it req.body.desc = result.desc;
+    if (req.body.desc)
+      ECMS_Location.update({desc: req.body.desc}, { where: {id: result.location_id}});
+    // if (req.body.)
+    // utils.createLocation(req, res, next);
+  }
+};
+
+exports.deleteEquipment = function(req,res,next){
+  // ECMS_Equipment.findOne where: req.params (model:req.params.model, asset_number:req.params.asset_number)
+  // perform delete on Promise
+};
+
+exports.deleteModel = function(req,res,next){
+  // ECMS_Equipment.findAll where: req.params (model:req.params.model)
+  // perform delete on Promise
+};
+
+/*
+Un-used
+ */
+
 exports.calibrate = function (req, res, next) {
   // replace calibrates with logic, promise return.
   calibrates = {};
   // myPromise.doSomething().then(function(records){
-    res.render('calibrate', { calibrates: calibrates});
+  res.render('calibrate', { calibrates: calibrates});
   // });
 };
 
-exports.postCalibrate = function (req, res, next) {
-
-};
 exports.postEquipment = function (req, res, next) {
   Equipment.create(req.body,{
     fields:['model', 'asset_number', 'location_id']
