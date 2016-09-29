@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       collate: 'utf8_unicode_ci',
       classMethods: {
         associate: function(models){
-          Schema.belongsTo(models.ECMS_Equipment, { foreignKey: 'asset_number', targetKey: 'asset_number'});
+          Schema.belongsTo(models.ECMS_Equipment, { foreignKey: 'asset_number', targetKey: 'asset_number', onDelete: 'CASCADE'});
         }
       }
   });

@@ -1,6 +1,6 @@
 # ROADMAP
-#### le 21, septembre 2016
-- Calibrate sequelize CRUD methods.
+#### le 28, septembre 2016
+- Calibrate sequelize CRUD methods. (completed)
 
 #### le 20, septembre 2016
 - Desired packages:

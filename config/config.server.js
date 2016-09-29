@@ -6,7 +6,7 @@
 var express       = require('express'),
   path            = require('path'),
   cors            = require('cors'),
-  favicon         = require('favicon'), // or require('serve-favicon');
+  favicon         = require('serve-favicon'),
   cookieParser    = require('cookie-parser'),
   bodyParser      = require('body-parser'),
   methodOverride  = require('method-override'),
@@ -39,9 +39,8 @@ module.exports  = function(app){
   // resolve 304 status code
   app.disable('etag');
 
-  // uncomment after placing your favicon in /public
-  // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-  // app.use(favicon(__dirname + '/public/favicon.ico'));
+  // uncomment after placing your favicon in /public http://onlinefavicon.com
+  app.use(favicon(path.resolve('public/img/favicon.ico')));
 
   // get all data/stuff of the body (POST) parameters
   // parse application/json

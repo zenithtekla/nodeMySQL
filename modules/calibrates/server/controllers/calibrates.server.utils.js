@@ -13,7 +13,7 @@ module.exports  = function(db, env) {
     createLocation: function(req, res, next){
       create_location(req, res, next);
     },
-    findMethod: function (req, res, next, callback) {
+    findAllMethod: function (req, res, next, callback) {
       ECMS_Equipment.findAll({
         where: req.params,
         attributes: ["model", "asset_number", "location_id"],
@@ -25,6 +25,28 @@ module.exports  = function(db, env) {
         callback(result);
       }).catch(function (err) {
         res.json({error: err});
+      });
+    },
+    findOneMethod: function (req, res, next, callback) {
+      ECMS_Equipment.findOne({
+        where: req.params,
+        attributes: ["model", "asset_number", "location_id"],
+        include: [
+          { model: ECMS_Attribute, attributes: ["last_cal", "schedule", "next_cal", "file"]},
+          { model: ECMS_Location, attributes: ["desc"]}
+        ]
+      }).then(function(result){
+        callback(result);
+        return null;
+      }).catch(function (err) {
+        res.json({error: err});
+      });
+    },
+    deleteMethod: function(req,res,next){
+      ECMS_Equipment.deleteRecord({
+        cond: {where: req.params},
+        onSuccess: () => res.json('model deleted!'),
+        onError: (err)=> res.json({error: err})
       });
     }
   };
@@ -120,6 +142,42 @@ module.exports  = function(db, env) {
         break;
     }
   }
+
+  var updateMethod = function (req, res, next){
+
+    utils.findOneMethod(req, res, next, callback);
+
+    function callback(result){
+      console.log(chalk.red('My RESULT '));
+      console.log(result.dataValues);
+      req.body.model = req.params.model;
+      req.body.asset_number = req.params.asset_number;
+      // SHOULD the location remain unchanged and unchangeable, give it req.body.desc = result.desc;
+      if (req.body.desc)
+        ECMS_Location.updateRecord({
+          newRecord: req.body,
+          cond: { where: {id: result.dataValues.location_id}},
+          onError: (err) => res.json({error: err}),
+          onSuccess: handler
+        });
+
+      if (req.body.file || req.body.schedule)
+        ECMS_Attribute.updateRecord({
+          newRecord: req.body,
+          cond: { where: { asset_number: result.dataValues.asset_number}},
+          onError: (err) => res.json({error: err}),
+          onSuccess: handler
+        });
+
+      function handler() {
+        utils.findOneMethod(req, res, next, function(result){
+          res.json(result);
+        });
+      }
+    }
+  };
+
+  utils.updateMethod = updateMethod;
 
   return utils;
 };
