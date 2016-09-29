@@ -53,24 +53,6 @@ exports.createEquipment = function(req,res,next){
 };
 
 exports.updateEquipment = function(req,res,next){
-  // ECMS_Equipment.findOne where: req.params (model:req.params.model, asset_number:req.params.asset_number)
-  // perform update on Promise
-  /*utils.findOneMethod(req, res, next, callback);
-  function callback(result){
-    console.log(chalk.red('My RESULT '));
-    console.log(result.dataValues);
-    req.body.model = req.params.model;
-    req.body.asset_number = req.params.asset_number;
-    // SHOULD the location remain unchanged and unchangeable, give it req.body.desc = result.desc;
-    if (req.body.desc)
-      ECMS_Location.update(req.body, { where: {id: result.dataValues.location_id}});
-    if (req.body.file || req.body.schedule)
-      ECMS_Attribute.update(req.body, { where: { asset_number: result.dataValues.asset_number}});
-
-    utils.findOneMethod(req, res, next, function(result){
-      res.json(result);
-    });
-  }*/
   utils.updateMethod(req, res, next);
 };
 

@@ -9,7 +9,6 @@ block content
     table.table.table-striped
       thead.thead-inverse
         tr
-          th id
           th asset_number
           th location_id
           th model
@@ -17,8 +16,7 @@ block content
       tbody
         each equipment in equipments
           tr
-            th(scope="row")= equipment.id
-            td= equipment.asset_number
+            th(scope="row")= equipment.asset_number
             td= equipment.location_id
             td= equipment.model
             td= equipment.status
