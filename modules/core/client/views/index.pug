@@ -4,3 +4,11 @@ block page
   - var menu = 'index'
 block content
   p #{greet}!
+  div(ng-app='manukeApp')
+    div(ng-controller='coreCtrl')
+      div(ng-include="'includes/ui-menu.html'")
+      #content(ui-view)
+        a(ui-sref="state1") State 1
+        a(ui-sref="state2") State 2
+        - x = {"name": "john", "age": "5" }
+        input(type="text", name=x.name, value=x.age)

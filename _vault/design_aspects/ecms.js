@@ -31,7 +31,7 @@ var Schema1 = new Schema({
   }
 });
 
-mongoose.model('User', Schema1);
+mongoose.model('ECMS', Schema1);
 
 /*
  An equipment has a model.

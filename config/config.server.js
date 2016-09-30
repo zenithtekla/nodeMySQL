@@ -56,6 +56,7 @@ module.exports  = function(app){
 
   // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
   app.use(methodOverride('X-HTTP-Method-Override'));
+  app.use(methodOverride('_method'));
 
   if (app.get('env') === 'development') require('./env/development')(app);
 
@@ -66,7 +67,8 @@ module.exports  = function(app){
   // set the static files location /public/img will be /img for users
   app.use(express.static(path.resolve('public'))); // app.use(express.static('uploads')); http://expressjs.com/en/starter/static-files.html
   // app.use(express.static(path.resolve('modules/client/core')));
-
+  app.use(express.static(path.resolve('modules/core/client/views')));
+  app.use(express.static(path.resolve('modules/angular1/client/views')));
 
   // render views
   require('./config.view')(app);

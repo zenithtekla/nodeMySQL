@@ -4,24 +4,4 @@ block page
   - var menu = 'calibrates'
 block content
   div
-    h3='Listing from ECMS main table'
-    - if (mains.length) {
-    table.table
-      tr
-        th id
-        th asset_number
-        th file
-        th last_cal
-        th next_cal
-        th schedule
-      each main in mains
-        tr
-          td= main.id
-          td= main.asset_number
-          td= main.file
-          td #{main.last_cal.toDateString()}
-          - if (main.next_cal) {
-          td #{main.next_cal.toDateString()}
-          - }
-          td= main.schedule
-    - }
+    #content

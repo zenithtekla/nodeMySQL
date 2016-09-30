@@ -2,9 +2,9 @@
 var controller  = require('../controllers/core.server.controllers');
 
 module.exports = function(app){
-  app.get('/home', controller.home)
+  app.get('/layout', controller.layout)
     .get('/', controller.home)
-    .get('/greet', controller.greet)
+    .get('/home', controller.home)
     .get('/chat', controller.chat)
     .get('/article', controller.article);
 

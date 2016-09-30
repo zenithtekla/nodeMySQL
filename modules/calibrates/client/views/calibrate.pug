@@ -10,6 +10,7 @@ block content
     table.table.table-striped
       thead.thead-inverse
         tr
+          th Actions
           th Asset Number
           th Model
           th Location
@@ -19,6 +20,13 @@ block content
       tbody
         each calibrate in calibrates
           tr
+            td
+              form(action='/calibrates/asset_number/' + calibrate.asset_number+'?_method=',method='post',enctype='application/x-www-form-urlencoded')
+                // temporarily obstrusive method
+                button(type='submit', onclick='this.form.action=this.form.action+"DELETE";').
+                  Delete
+                button(type='submit', onclick='this.form.action=this.form.action+"GET";').
+                  View
             td= calibrate.asset_number
             td= calibrate.model
             td= calibrate.ECMS_Location.desc
@@ -27,4 +35,4 @@ block content
             - if (calibrate.ECMS_Attributes[0].file) {
             td= calibrate.ECMS_Attributes[0].file
             - }
-      - }
+    - }

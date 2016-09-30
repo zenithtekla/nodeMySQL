@@ -2,11 +2,11 @@
 var models = require( process.cwd() + '/modules/core/server/models'),
     env     = process.env.NODE_ENV || "development";
 
-exports.home = function (req,res) {
+exports.layout = function (req,res) {
   res.render('layout', {title: "CoreHomeApp", env: env});
 };
-exports.greet = function (req,res) {
-  res.render('index', {greet: "This is a greet text", title: "CoreIndexApp", env: env});
+exports.home = function (req,res) {
+  res.render('index', {greet: "This is a greet text @ index page", title: "CoreIndexApp", env: env});
 };
 
 exports.article = function (req,res) {
